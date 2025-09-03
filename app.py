@@ -77,7 +77,10 @@ def created():
                 <h1>Создано успешно</h1>
                 <div><i>что-то создано...</i></div>
           </body>
-        </html>''', 201
+        </html>''', 201, {
+            "X-Server": "sample",
+            "Content-Type": "text/plain; charset=utf-8"
+        }
 
 @app.errorhandler(404)
 def not_found(err):
