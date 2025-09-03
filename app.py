@@ -1,4 +1,5 @@
-from flask import Flask, url_for
+from flask import Flask, url_for, request
+import datetime
 app = Flask(__name__)
 
 @app.route("/")
@@ -41,3 +42,16 @@ def image():
                <a href="/author">author</a>
           </body>
         </html>'''
+
+count = 0
+@app.route("/counter")
+def counter():
+    global count
+    count += 1
+    return '''<!doctype html>
+        <html> 
+           <body>
+                Сколько раз вы сюда заходили ''' + str(count) + '''
+          </body>
+        </html>'''
+
