@@ -117,7 +117,12 @@ def image():
                 </div>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 2 курс, 2025</footer>
             </body>
-        </html>'''
+        </html>''', {
+            "X-Server": "sample",
+            "Content-Language": "en, ase, ru",
+            "Web-Prog": "FBI-31",
+            "Author": "Alexander Ryazantsev"
+        }
 
 count = 0
 @app.route("/lab1/counter")
