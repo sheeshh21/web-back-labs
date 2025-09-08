@@ -32,6 +32,29 @@ def a():
           </body>
         </html>'''
 
+@app.route("/lab1")
+def lab1():
+    css = url_for('static', filename='lab1.css')
+
+    return '''<!doctype html>
+        <html> 
+        <link rel="stylesheet" href="''' + css + '''">
+           <body>
+                <title>Лабораторная 1</title>
+                <header>НГТУ, ФБ, WEB-программирование, Лабораторная 1</header>
+                    <div>
+                        Flask — фреймворк для создания веб-приложений на языке
+                        программирования Python, использующий набор инструментов
+                        Werkzeug, а также шаблонизатор Jinja2. Относится к категории так
+                        называемых микрофреймворков — минималистичных каркасов
+                        веб-приложений, сознательно предоставляющих лишь самые ба
+                        зовые возможности.
+                    </div>
+                    <a href="/">Вернуться в начало</a>
+                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 2 курс, 2025</footer>
+          </body>
+        </html>'''
+
 @app.route("/lab1/web")
 def web():
     css = url_for('static', filename='lab1.css')
