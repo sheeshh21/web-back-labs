@@ -279,8 +279,18 @@ def code418():
         </html>''', 418
 
 @app.errorhandler(404)
-def not_found(err):
-    return "нет такой станицы", 404
+def not_found1(err):
+    css = url_for('static', filename='lab1.css')
+    error = url_for('static', filename='error.png')
+    return '''<!doctype html>
+        <html> 
+        <link rel="stylesheet" href="''' + css + '''">
+           <body class='bodyerror'>
+                <title>НГТУ, ФБ, Лабораторные работы</title>
+                <div class='error'>Упс, походу это ошибка 404...</div>
+                <img class='imgerror' src=''' + error + '''>
+          </body>
+        </html>''', 404
 
 
 
