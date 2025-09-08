@@ -292,5 +292,33 @@ def not_found1(err):
           </body>
         </html>''', 404
 
+@app.route("/lab1/obrabot")
+def obrabot():
+    css = url_for('static', filename='lab1.css')
+    a = 100
+    b = 0
+    return '''<!doctype html>
+        <html> 
+        <link rel="stylesheet" href="''' + css + '''">
+           <body>
+                <title>НГТУ, ФБ, Лабораторные работы</title>
+                <header>НГТУ, ФБ, WEB-программирование</header>
+                <div>''' + str(a/b) + '''</div>
+                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
+          </body>
+        </html>'''
+
+@app.errorhandler(500)
+def not_found2(err):
+    css = url_for('static', filename='lab1.css')
+    return '''<!doctype html>
+        <html> 
+        <link rel="stylesheet" href="''' + css + '''">
+           <body class='bodyerror'>
+                <title>НГТУ, ФБ, Лабораторные работы</title>
+                <div class='error1'>Внутренняя ошибка сервера!<br>Сервер столкнулся с внутренней ошибкой и не смог выполнить ваш запрос. Сервер перегружен, либо в приложении произошла ошибка.</div>
+          </body>
+        </html>''', 500
+
 
 
