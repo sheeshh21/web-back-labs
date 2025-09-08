@@ -1,5 +1,25 @@
 body {
     background-color: rgb(177, 196, 255);
+    font-size: 24px;
+    text-align: center;
+    color: black
+}
+
+header {
+    background-color: rgb(179, 225, 249);
+    color: black;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: rgb(179, 225, 249);
+    color: black;
+    text-align: right;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 98%;
 }
 
 img {
@@ -30,4 +50,21 @@ h1 {
 .tree {
     font-size: 50px;
     position: absolute;
+}
+
+.clearcounter {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 38px;
+    color: black;
+}
+
+.hr {
+    color: black;
+    border: 1px solid black;
+}
+
+.link {
+    text-align: center;
+    font-size: 26px;
 }
