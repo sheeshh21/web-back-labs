@@ -5,6 +5,7 @@ body {
     color: black;
     margin: 0;
     margin-bottom: 100px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.408);
 }
 
 header {
@@ -77,6 +78,10 @@ h1 {
     border: 1px solid black;
 }
 
+.text {
+    text-align: left;
+}
+
 .link {
     text-align: center;
     font-size: 26px;
@@ -86,19 +91,21 @@ h1 {
     font-size: 60px;
     font-weight: bold;
     text-align: center;
-    margin-top: 200px;
+    margin-top: 50px;
     color: white;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .bodyerror {
     background-color: black;
+    color: white;
 }
 
 .imgerror {
     border: 0px;
     width: 500px;
     margin-top: 50px;
+
 }
 
 .error1 {
@@ -106,4 +113,32 @@ h1 {
     margin: 0;
     color: white;
     font-weight: bold;
+}
+
+.logs {
+    text-align: left;
+    color: rgb(172, 255, 172);
+    font-weight: 100;
+}
+.hlogs {
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px;
+}
+
+.hr1 {
+    color: white;
+}
+
+.spisoklab {
+    background-color: rgba(190, 255, 179, 0.462);
+    padding: 10px;
+    margin-top: 500px;
+    margin: 0;
+    display: inline-block;
+    padding-right: 100px;
+    padding-left: 100px;
+    border-radius: 20px;
+    border: 3px solid rgb(193, 255, 176);
 }

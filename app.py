@@ -12,8 +12,8 @@ def index():
            <body>
                 <title>НГТУ, ФБ, Лабораторные работы</title>
                 <header>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</header>
-                    <a href="/lab1">Лабораторная работа №1</a>
-                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 2 курс, 2025</footer>
+                    <div class='spisoklab'><a href="/lab1">Лабораторная работа №1</a></div>
+                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>
         </html>'''
 
@@ -27,8 +27,8 @@ def a():
            <body>
                 <title>НГТУ, ФБ, Лабораторные работы</title>
                 <header>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</header>
-                    <a href="/lab1">Лабораторная работа №1</a>
-                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 2 курс, 2025</footer>
+                    <div class='spisoklab'><a href="/lab1">Лабораторная работа №1</a></div>
+                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>
         </html>'''
 
@@ -52,22 +52,26 @@ def lab1():
                     </div>
                     <a href="/">Вернуться в начало</a>
                     <h2>Список роутов:</h2>
-                    <a href="/">Корень сайта</a><br>
-                    <a href="/index">index</a><br>
-                    <a href="/lab1/web">web</a><br>
-                    <a href="/lab1/author">author</a><br>
-                    <a href="/lab1/image">image</a><br>
-                    <a href="/lab1/counter">counter</a><br>
-                    <a href="/lab1/clearcounter">clearcounter</a><br>
-                    <a href="/lab1/info">info</a><br>
-                    <a href="/lab1/400">400</a><br>
-                    <a href="/lab1/401">401</a><br>
-                    <a href="/lab1/402">402</a><br>
-                    <a href="/lab1/403">403</a><br>
-                    <a href="/lab1/404">404</a><br>
-                    <a href="/lab1/405">405</a><br>
-                    <a href="/lab1/418">418</a><br>
-                    <a href="/lab1/obrabot">obrabot</a><br>
+                    <div class=spisoklab>
+                        <ol class='text'>
+                            <li><a href="/">Корень сайта</a><br>
+                            <li><a href="/index">Главная страница</a><br>
+                            <li><a href="/lab1/web">Веб-сервер</a><br>
+                            <li><a href="/lab1/author">Автор</a><br>
+                            <li><a href="/lab1/image">Изображение</a><br>
+                            <li><a href="/lab1/counter">Счетчик</a><br>
+                            <li><a href="/lab1/clearcounter">Сбор счетчика</a><br>
+                            <li><a href="/lab1/info">Информация</a><br>
+                            <li><a href="/lab1/400">Код ответа 400</a><br>
+                            <li><a href="/lab1/401">Код ответа 401</a><br>
+                            <li><a href="/lab1/402">Код ответа 402</a><br>
+                            <li><a href="/lab1/403">Код ответа 403</a><br>
+                            <li><a href="/lab1/404">Код ответа 404</a><br>
+                            <li><a href="/lab1/405">Код ответа 405</a><br>
+                            <li><a href="/lab1/418">Код ответа 418</a><br>
+                            <li><a href="/lab1/obrabot">Обработчик</a><br>
+                        </ol>
+                    </div>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>
         </html>'''
@@ -298,10 +302,21 @@ def code418():
           </body>
         </html>''', 418
 
+logs = ""
 @app.errorhandler(404)
 def not_found1(err):
     css = url_for('static', filename='lab1.css')
     error = url_for('static', filename='error.png')
+    global client_ip
+    global time
+    global url
+    global logs
+    client_ip = request.remote_addr
+    time = datetime.datetime.today()
+    url = request.url
+    logs += '''<div class='logs'><ul><li>[<i>''' + str(time) + '''</i>, пользователь <i>''' + client_ip + '''</i>] зашел на адрес: <i>''' + url + '''</i></li></ul></div>'''
+    
+
     return '''<!doctype html>
         <html> 
         <link rel="stylesheet" href="''' + css + '''">
@@ -309,8 +324,17 @@ def not_found1(err):
                 <title>НГТУ, ФБ, Лабораторная работа 1</title>
                 <div class='error'>Упс, походу это ошибка 404...</div>
                 <img class='imgerror' src=''' + error + '''>
+                <hr class='hr1'>
+                <div>Ваш IP адрес:</div> ''' + client_ip + '''<br>
+                <hr class='hr1'>
+                <div>Дата и время:</div> ''' + str(time) + '''<br>
+                <hr class='hr1'>
+                <a href="/">Корень сайта</a><br>
+                <hr class='hr1'>
+                <div class='hlogs'>Журнал посещений:''' + logs + '''</div>
           </body>
         </html>''', 404
+
 
 @app.route("/lab1/obrabot")
 def obrabot():
