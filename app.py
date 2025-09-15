@@ -62,6 +62,7 @@ def lab1():
                             <li><a href="/lab1/counter">Счетчик</a><br>
                             <li><a href="/lab1/clearcounter">Сбор счетчика</a><br>
                             <li><a href="/lab1/info">Информация</a><br>
+                            <li><a href="/lab1/created">Что-то создано</a><br>
                             <li><a href="/lab1/400">Код ответа 400</a><br>
                             <li><a href="/lab1/401">Код ответа 401</a><br>
                             <li><a href="/lab1/402">Код ответа 402</a><br>
@@ -90,7 +91,10 @@ def web():
                 <a href="/lab1/author">Автор</a><br>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>
-        </html>'''
+        </html>''', 200, { 
+            'X-Server': 'sample', 
+            'Content-Type': 'text/plain; charset=utf-8' 
+        }
 
 @app.route("/lab1/author")
 def author():
@@ -213,10 +217,7 @@ def created():
                 <div><i>что-то создано...</i></div>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>
-        </html>''', 201, {
-            "X-Server": "sample",
-            "Content-Type": "text/plain; charset=utf-8"
-        }
+        </html>''', 201
 
 @app.route("/lab1/400")
 def code400():
