@@ -306,7 +306,7 @@ def code418():
 logs = ""
 @app.errorhandler(404)
 def not_found1(err):
-    css = url_for('static', filename='lab1.css')
+    css = url_for('static', filename='main.css')
     error = url_for('static', filename='error.png')
     global client_ip
     global time
@@ -377,7 +377,7 @@ flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашк
 
 @app.route("/lab2/flowers/<int:flower_id>")
 def flowers(flower_id):
-    css = url_for('static', filename='lab1.css')
+    css = url_for('static', filename='main.css')
     if flower_id >= len(flower_list):
         abort(404)
     else:    
@@ -385,30 +385,57 @@ def flowers(flower_id):
             <html>
             <link rel="stylesheet" href="''' + css + '''">
             <body>
-                    <title>НГТУ, ФБ, Лабораторная работа 1</title>
-                    <header>НГТУ, ФБ, WEB-программирование, Лабораторная 1</header>
+                    <title>НГТУ, ФБ, Лабораторная работа 2</title>
+                    <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
                     <div>цветок:''' + flower_list[flower_id] + '''</div>
                     <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
+                    <a href='/lab2/spisok_flower'>spisok</a>
             </body>
             </html>'''
     
 @app.route("/lab2/add_flower/<name>")
 def add_flower(name):
-    css = url_for('static', filename='lab1.css') 
+    css = url_for('static', filename='main.css') 
     flower_list.append(name)
     return f'''<!doctype html>
         <html>
         <link rel="stylesheet" href="{css}">
         <body>
-                <title>НГТУ, ФБ, Лабораторная работа 1</title>
-                <header>НГТУ, ФБ, WEB-программирование, Лабораторная 1</header>
+                <title>НГТУ, ФБ, Лабораторная работа 2</title>
+                <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
                 <h1>Добавлен новый цветок</h1>
                 <div>Название нового цветка: {name}</div>
-                <p>Всего цветов: {len(flower_list)}</p>
+                <p>Всего цветов: {len(flower_list)}</p> 
                 <p>Полный список: {flower_list}</p>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
         </body>
         </html>'''
+
+@app.route("/lab2/add_flower/")
+def none_flower():
+    return render_template('none_flower.html')
+
+@app.route("/lab2/spisok_flower")
+def spisok_flower():
+    number_flower = len(flower_list)
+    return render_template('spisok_flower.html', flower_list=flower_list, number_flower=number_flower)
+
+
+@app.route("/lab2/clear_flower")
+def clear_flower():
+    css = url_for('static', filename='main.css') 
+    flower_list.clear()
+    return f'''<!doctype html>
+            <html>
+            <link rel="stylesheet" href="{css}">
+            <body>
+                    <title>НГТУ, ФБ, Лабораторная работа 2</title>
+                    <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
+                    <div>Список очищен</div>
+                    <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
+                    <a href='/lab2/spisok_flower'>spisok</a>
+            </body>
+            </html>'''
 
 @app.route('/lab2/example')
 def example():
@@ -428,3 +455,8 @@ def example():
 @app.route('/lab2/')
 def lab2():
     return render_template('lab2.html')
+
+@app.route('/lab2/filters')
+def filters():
+    phrase = 'О <b>сколько</b> <u>нам</u> <i>отркытий</i> чудных...'
+    return render_template('filter.html', phrase=phrase)
