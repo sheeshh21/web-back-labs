@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, redirect
+from flask import Flask, url_for, request, redirect, abort
 import datetime
 app = Flask(__name__)
 
@@ -373,4 +373,22 @@ def a1():
 def a2():
     return 'со слешем'
 
+flower_list = ('роза', 'тюльпан', 'незабудка', 'ромашка')
+
+@app.route("/lab2/flowers/<int:flower_id>")
+def flowers(flower_id):
+    css = url_for('static', filename='lab1.css')
+    if flower_id >= len(flower_list):
+        abort(404)
+    else:    
+        return '''<!doctype html>
+            <html>
+            <link rel="stylesheet" href="''' + css + '''">
+            <body>
+                    <title>НГТУ, ФБ, Лабораторная работа 1</title>
+                    <header>НГТУ, ФБ, WEB-программирование, Лабораторная 1</header>
+                    <div>цветок:''' + flower_list[flower_id] + '''</div>
+                    <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
+            </body>
+            </html>'''
 
