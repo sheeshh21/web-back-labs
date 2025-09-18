@@ -415,5 +415,5 @@ def example():
     name = 'Рязанцев Александр Алексеевич'
     number_lab = '2'
     group = 'ФБИ-31'
-    course = '3'
-    return render_template('example.html', name=name, number_lab=number_lab, group=group, course=course)
+    course = '3 курс'
+    return render_template('example.html', number_lab=number_lab, name=name, group=group, course=course)
