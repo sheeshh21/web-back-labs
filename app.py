@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, redirect, abort
+from flask import Flask, url_for, request, redirect, abort, render_template
 import datetime
 app = Flask(__name__)
 
@@ -373,7 +373,7 @@ def a1():
 def a2():
     return 'со слешем'
 
-flower_list = ('роза', 'тюльпан', 'незабудка', 'ромашка')
+flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашка']
 
 @app.route("/lab2/flowers/<int:flower_id>")
 def flowers(flower_id):
@@ -391,4 +391,25 @@ def flowers(flower_id):
                     <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
             </body>
             </html>'''
+    
+@app.route("/lab2/add_flower/<name>")
+def add_flower(name):
+    css = url_for('static', filename='lab1.css') 
+    flower_list.append(name)
+    return f'''<!doctype html>
+        <html>
+        <link rel="stylesheet" href="{css}">
+        <body>
+                <title>НГТУ, ФБ, Лабораторная работа 1</title>
+                <header>НГТУ, ФБ, WEB-программирование, Лабораторная 1</header>
+                <h1>Добавлен новый цветок</h1>
+                <div>Название нового цветка: {name}</div>
+                <p>Всего цветов: {len(flower_list)}</p>
+                <p>Полный список: {flower_list}</p>
+                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
+        </body>
+        </html>'''
 
+@app.route('/lab2/example')
+def example():
+    return render_template('example.html')
