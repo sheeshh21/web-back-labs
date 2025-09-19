@@ -452,6 +452,24 @@ def example():
     ]
     return render_template('example.html', number_lab=number_lab, name=name, group=group, course=course, fruits=fruits)
 
+@app.route('/lab2/books')
+def books():
+    books = [
+    {'author': 'Фёдор Достоевский', 'name': 'Преступление и наказание', 'genre': 'Роман', 'str': 671},
+    {'author': 'Лев Толстой', 'name': 'Война и мир', 'genre': 'Эпопея', 'str': 1274},
+    {'author': 'Михаил Булгаков', 'name': 'Мастер и Маргарита', 'genre': 'Роман', 'str': 384},
+    {'author': 'Антон Чехов', 'name': 'Рассказы', 'genre': 'Рассказы', 'str': 256},
+    {'author': 'Александр Пушкин', 'name': 'Евгений Онегин', 'genre': 'Роман в стихах', 'str': 224},
+    {'author': 'Николай Гоголь', 'name': 'Мёртвые души', 'genre': 'Поэма', 'str': 352},
+    {'author': 'Иван Тургенев', 'name': 'Отцы и дети', 'genre': 'Роман', 'str': 288},
+    {'author': 'Александр Солженицын', 'name': 'Архипелаг ГУЛАГ', 'genre': 'Историческая проза', 'str': 1424},
+    {'author': 'Владимир Набоков', 'name': 'Лолита', 'genre': 'Роман', 'str': 336},
+    {'author': 'Михаил Шолохов', 'name': 'Тихий Дон', 'genre': 'Роман-эпопея', 'str': 1504},
+    {'author': 'Джордж Оруэлл', 'name': '1984', 'genre': 'Антиутопия', 'str': 328},
+    {'author': 'Рэй Брэдбери', 'name': '451° по Фаренгейту', 'genre': 'Научная фантастика', 'str': 256}
+]
+    return render_template('books.html', books=books)
+
 @app.route('/lab2/')
 def lab2():
     return render_template('lab2.html')
