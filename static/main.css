@@ -142,3 +142,29 @@ h1 {
     border-radius: 20px;
     border: 3px solid rgb(193, 255, 176);
 }
+
+.berry {
+   border: 0px;
+   width: 200px;
+}
+
+.berryblock {
+    font-size: 26px;
+}
+
+.berryhr {
+    border: 1px solid black;
+    width: 80%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.634);
+}
+
+.spisokberry {
+    border: 2px solid rgb(203, 131, 199);
+    border-radius: 10px;
+    background: linear-gradient(rgb(255, 234, 254), rgb(255, 181, 253),rgb(255, 231, 254));
+    display: inline-block;
+    padding-right: 150px;
+    padding-left: 150px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

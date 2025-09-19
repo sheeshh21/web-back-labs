@@ -452,24 +452,6 @@ def example():
     ]
     return render_template('example.html', number_lab=number_lab, name=name, group=group, course=course, fruits=fruits)
 
-@app.route('/lab2/books')
-def books():
-    books = [
-    {'author': 'Фёдор Достоевский', 'name': 'Преступление и наказание', 'genre': 'Роман', 'str': 671},
-    {'author': 'Лев Толстой', 'name': 'Война и мир', 'genre': 'Эпопея', 'str': 1274},
-    {'author': 'Михаил Булгаков', 'name': 'Мастер и Маргарита', 'genre': 'Роман', 'str': 384},
-    {'author': 'Антон Чехов', 'name': 'Рассказы', 'genre': 'Рассказы', 'str': 256},
-    {'author': 'Александр Пушкин', 'name': 'Евгений Онегин', 'genre': 'Роман в стихах', 'str': 224},
-    {'author': 'Николай Гоголь', 'name': 'Мёртвые души', 'genre': 'Поэма', 'str': 352},
-    {'author': 'Иван Тургенев', 'name': 'Отцы и дети', 'genre': 'Роман', 'str': 288},
-    {'author': 'Александр Солженицын', 'name': 'Архипелаг ГУЛАГ', 'genre': 'Историческая проза', 'str': 1424},
-    {'author': 'Владимир Набоков', 'name': 'Лолита', 'genre': 'Роман', 'str': 336},
-    {'author': 'Михаил Шолохов', 'name': 'Тихий Дон', 'genre': 'Роман-эпопея', 'str': 1504},
-    {'author': 'Джордж Оруэлл', 'name': '1984', 'genre': 'Антиутопия', 'str': 328},
-    {'author': 'Рэй Брэдбери', 'name': '451° по Фаренгейту', 'genre': 'Научная фантастика', 'str': 256}
-]
-    return render_template('books.html', books=books)
-
 @app.route('/lab2/')
 def lab2():
     return render_template('lab2.html')
@@ -523,3 +505,132 @@ def defcalc():
 @app.route("/lab2/calc/<int:a>")
 def newcalc(a):
     return redirect(f'/lab2/calc/{a}/1')
+
+@app.route('/lab2/books')
+def books():
+    books = [
+    {'author': 'Фёдор Достоевский', 'name': 'Преступление и наказание', 'genre': 'Роман', 'str': 671},
+    {'author': 'Лев Толстой', 'name': 'Война и мир', 'genre': 'Эпопея', 'str': 1274},
+    {'author': 'Михаил Булгаков', 'name': 'Мастер и Маргарита', 'genre': 'Роман', 'str': 384},
+    {'author': 'Антон Чехов', 'name': 'Рассказы', 'genre': 'Рассказы', 'str': 256},
+    {'author': 'Александр Пушкин', 'name': 'Евгений Онегин', 'genre': 'Роман в стихах', 'str': 224},
+    {'author': 'Николай Гоголь', 'name': 'Мёртвые души', 'genre': 'Поэма', 'str': 352},
+    {'author': 'Иван Тургенев', 'name': 'Отцы и дети', 'genre': 'Роман', 'str': 288},
+    {'author': 'Александр Солженицын', 'name': 'Архипелаг ГУЛАГ', 'genre': 'Историческая проза', 'str': 1424},
+    {'author': 'Владимир Набоков', 'name': 'Лолита', 'genre': 'Роман', 'str': 336},
+    {'author': 'Михаил Шолохов', 'name': 'Тихий Дон', 'genre': 'Роман-эпопея', 'str': 1504},
+    {'author': 'Джордж Оруэлл', 'name': '1984', 'genre': 'Антиутопия', 'str': 328},
+    {'author': 'Рэй Брэдбери', 'name': '451° по Фаренгейту', 'genre': 'Научная фантастика', 'str': 256}
+]
+    return render_template('books.html', books=books)
+
+@app.route('/lab2/berry')
+def berry():
+    berry = [
+    {
+        'name': 'Клубника',
+        'image': 'klub.png',
+        'description': 'Сладкая красная ягода, богатая витамином C и антиоксидантами.'
+    },
+    {
+        'name': 'Малина',
+        'image': 'malina.png',
+        'description': 'Ароматная ягода с нежным вкусом, содержит эллаговую кислоту.'
+    },
+    {
+        'name': 'Черника',
+        'image': 'chernika.png',
+        'description': 'Маленькая синяя ягода, улучшает зрение и память.'
+    },
+    {
+        'name': 'Ежевика',
+        'image': 'ezhevika.png',
+        'description': 'Тёмная ягода с кисло-сладким вкусом, богата клетчаткой.'
+    },
+    {
+        'name': 'Смородина чёрная',
+        'image': 'chernsmor.png',
+        'description': 'Ароматная ягода с высоким содержанием витамина C.'
+    },
+    {
+        'name': 'Смородина красная',
+        'image': 'krasncmor.png',
+        'description': 'Кислая прозрачная ягода, отлично подходит для желе.'
+    },
+    {
+        'name': 'Крыжовник',
+        'image': 'krizh.png',
+        'description': 'Зелёная или красная ягода с освежающим кисло-сладким вкусом.'
+    },
+    {
+        'name': 'Голубика',
+        'image': 'golubika.png',
+        'description': 'Дикая родственница черники, растёт в хвойных лесах.'
+    },
+    {
+        'name': 'Брусника',
+        'image': 'brusnika.png',
+        'description': 'Красная кислая ягода, часто используется в медицине.'
+    },
+    {
+        'name': 'Клюква',
+        'image': 'klukva.png',
+        'description': 'Кислая красная ягода, растёт на болотах, полезна для почек.'
+    },
+    {
+        'name': 'Облепиха',
+        'image': 'oblepiha.png',
+        'description': 'Оранжевая ягода с высоким содержанием витаминов A и E.'
+    },
+    {
+        'name': 'Шиповник',
+        'image': 'shipovnik.png',
+        'description': 'Плод розы, рекордсмен по содержанию витамина C.'
+    },
+    {
+        'name': 'Боярышник',
+        'image': 'boyarishnik.png',
+        'description': 'Красные ягоды, полезные для сердечно-сосудистой системы.'
+    },
+    {
+        'name': 'Калина',
+        'image': 'kalina.png',
+        'description': 'Красные горьковатые ягоды, традиционное лекарственное растение.'
+    },
+    {
+        'name': 'Рябина',
+        'image': 'ryabina.png',
+        'description': 'Оранжево-красные ягоды, становятся сладкими после заморозков.'
+    },
+    {
+        'name': 'Черёмуха',
+        'image': 'cheremuha.png',
+        'description': 'Чёрные ароматные ягоды с вяжущим вкусом.'
+    },
+    {
+        'name': 'Ирга',
+        'image': 'irga.png',
+        'description': 'Сладкие сине-чёрные ягоды, богатые антиоксидантами.'
+    },
+    {
+        'name': 'Жимолость',
+        'image': 'jimolost.png',
+        'description': 'Синие продолговатые ягоды с уникальным вкусом.'
+    },
+    {
+        'name': 'Бузина',
+        'image': 'buzina.png',
+        'description': 'Тёмно-фиолетовые ягоды, используются в народной медицине.'
+    },
+    {
+        'name': 'Годжи',
+        'image': 'godji.png',
+        'description': 'Красные ягоды, известные как суперфуд с антиоксидантами.'
+    },
+    {
+        'name': 'Морошка',
+        'image': 'moroshka.png',
+        'description': 'Желто-оранжевая ягода, растущая в северных регионах.'
+    },
+]
+    return render_template('berry.html', berry=berry)
