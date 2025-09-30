@@ -386,7 +386,12 @@ def a2():
           </body>
         </html>'''
 
-flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашка']
+flower_list = [
+                {'name1': 'роза', 'price': 100},
+                {'name1': 'тюльпан', 'price': 200},
+                {'name1': 'незабудка', 'price': 400},
+                {'name1': 'ромашка', 'price': 100}
+            ]
 
 @app.route("/lab2/flowers/<int:flower_id>")
 def flowers(flower_id):
@@ -437,11 +442,9 @@ def add_flower(name):
 def none_flower():
     return render_template('none_flower.html')
 
-@app.route("/lab2/spisok_flower")
-def spisok_flower():
-    number_flower = len(flower_list)
-    return render_template('spisok_flower.html', flower_list=flower_list, number_flower=number_flower)
-
+@app.route('/lab2/spisok_flower/')
+def all_flowers():
+    return render_template('spisok_flower.html', flowers=flower_list)
 
 @app.route("/lab2/clear_flower")
 def clear_flower():
@@ -667,3 +670,39 @@ def berry():
 ]
     return render_template('berry.html', berry=berry)
 
+flowers_with_prices = [
+    {'name': 'роза', 'price': 300},
+    {'name': 'тюльпан', 'price': 310},
+    {'name': 'незабудка', 'price': 320},
+    {'name': 'ромашка', 'price': 330}
+]
+
+@app.route('/lab2/flowers_advanced/', methods=['GET', 'POST'])
+def flowers_advanced():
+   
+    if request.method == 'POST':
+        flower_name = request.form.get('flower_name')
+        flower_price = request.form.get('flower_price')
+        if flower_name and flower_price:
+            flowers_with_prices.append({'name': flower_name, 'price': int(flower_price)})
+
+    return render_template('flowers_advanced.html', flowers=flowers_with_prices)
+
+@app.route('/lab2/add_flower_advanced/<name>/<int:price>')
+def add_flower_advanced(name, price):
+
+    flowers_with_prices.append({'name': name, 'price': price})
+    return redirect('/lab2/flowers_advanced/')
+
+@app.route('/lab2/del_flower/<int:flower_id>')
+def del_flower(flower_id):
+    
+    if flower_id >= len(flowers_with_prices):
+        abort(404)
+    flowers_with_prices.pop(flower_id)
+    return redirect('/lab2/flowers_advanced/')
+
+@app.route('/lab2/del_all_flowers')
+def del_all_flowers():
+    flowers_with_prices.clear()
+    return redirect('/lab2/flowers_advanced/')
