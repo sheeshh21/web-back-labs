@@ -386,12 +386,7 @@ def a2():
           </body>
         </html>'''
 
-flower_list = [
-                {'name1': 'роза', 'price': 100},
-                {'name1': 'тюльпан', 'price': 200},
-                {'name1': 'незабудка', 'price': 400},
-                {'name1': 'ромашка', 'price': 100}
-            ]
+flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашка']
 
 @app.route("/lab2/flowers/<int:flower_id>")
 def flowers(flower_id):
