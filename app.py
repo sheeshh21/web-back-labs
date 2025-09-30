@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/index")
 def index():
-    css = url_for('static', filename='lab1.css')
+    css = url_for('static', filename='main.css')
 
     return '''<!doctype html>
         <html> 
@@ -12,6 +12,7 @@ def index():
            <body>
                 <title>НГТУ, ФБ, Лабораторные работы</title>
                 <header>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</header>
+                    <div class='spisoklab'><a href="/lab1">Лабораторная работа №1</a></div>
                     <div class='spisoklab'><a href="/lab1">Лабораторная работа №1</a></div>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>
@@ -19,7 +20,7 @@ def index():
 
 @app.route("/")
 def a():
-    css = url_for('static', filename='lab1.css')
+    css = url_for('static', filename='main.css')
 
     return '''<!doctype html>
         <html> 
@@ -28,13 +29,14 @@ def a():
                 <title>НГТУ, ФБ, Лабораторные работы</title>
                 <header>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</header>
                     <div class='spisoklab'><a href="/lab1">Лабораторная работа №1</a></div>
+                    <div class='spisoklab'><a href="/lab2">Лабораторная работа №2</a></div>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>
         </html>'''
 
 @app.route("/lab1")
 def lab1():
-    css = url_for('static', filename='lab1.css')
+    css = url_for('static', filename='main.css')
 
     return '''<!doctype html>
         <html> 
@@ -371,7 +373,18 @@ def a1():
 
 @app.route("/lab2/a/")
 def a2():
-    return 'со слешем'
+    css = url_for('static', filename='main.css')
+    return '''<!doctype html>
+        <html> 
+        <link rel="stylesheet" href="''' + css + '''">
+           <body>
+                <title>НГТУ, ФБ, Лабораторная работа 2</title>
+                <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
+                <div>со слешем</div>
+                <a href="/" class="koren">🏠</a>
+                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
+          </body>
+        </html>'''
 
 flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашка']
 
@@ -385,11 +398,12 @@ def flowers(flower_id):
             <html>
             <link rel="stylesheet" href="''' + css + '''">
             <body>
-                    <title>НГТУ, ФБ, Лабораторная работа 2</title>
-                    <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
-                    <div>цветок:''' + flower_list[flower_id] + '''</div>
-                    <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
-                    <a href='/lab2/spisok_flower'>spisok</a>
+                <title>НГТУ, ФБ, Лабораторная работа 2</title>
+                <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
+                <div>цветок:''' + flower_list[flower_id] + '''</div>
+                <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
+                <a href='/lab2/spisok_flower'>spisok</a>
+                <a href="/" class="koren">🏠</a>
             </body>
             </html>'''
     
@@ -434,6 +448,7 @@ def clear_flower():
                     <div>Список очищен</div>
                     <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
                     <a href='/lab2/spisok_flower'>spisok</a>
+                    <a href="/" class="koren">🏠</a>
             </body>
             </html>'''
 
@@ -494,6 +509,7 @@ def calc(a, b):
             <div>Деление: {delenie_str}</div>
             <div>Возведение в степень: {stepen_str}</div>
             <hr>
+            <a href="/" class="koren">🏠</a>
             <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
         </body>
         </html>'''
@@ -634,3 +650,4 @@ def berry():
     },
 ]
     return render_template('berry.html', berry=berry)
+

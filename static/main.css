@@ -133,14 +133,14 @@ h1 {
 
 .spisoklab {
     background-color: rgba(190, 255, 179, 0.462);
-    padding: 10px;
-    margin-top: 500px;
-    margin: 0;
-    display: inline-block;
-    padding-right: 100px;
-    padding-left: 100px;
+    padding: 15px 40px;
+    margin: 20px auto; 
+    display: block;
+    width: fit-content;
+    max-width: 90%;
     border-radius: 20px;
     border: 3px solid rgb(193, 255, 176);
+    text-align: center; 
 }
 
 .berry {
@@ -167,4 +167,72 @@ h1 {
     padding-left: 150px;
     padding-top: 20px;
     padding-bottom: 20px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.455);
+}
+
+.zagl {
+    font-weight: bold;
+    font-size: 35px;
+    padding: 20px;
+}
+
+.books {
+    font-style: italic;
+    border: 4px solid rgb(73, 16, 117);
+    display: inline-block;
+    border-radius: 10px;
+    padding-right: 20px;
+    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.451);
+    background-color: rgba(212, 255, 215, 0.696);
+}
+
+.books1 {
+    padding: 5px;
+
+}
+
+.hrr {
+    width: 60%;
+    color: black;
+    border: 1px solid black;
+}
+
+.home-sticker {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #ff6b6b, #ffa726);
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 50px 10px 50px 50px;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    transform: rotate(-2deg);
+    border: 3px solid white;
+}
+
+.koren {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 24px;
+    transition: 0.3s ease;
+    z-index: 1000;
+}
+
+.koren:hover {
+    transform: scale(1.1); 
+    background: rgba(0, 0, 0, 0.4);
 }

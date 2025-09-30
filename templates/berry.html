@@ -7,8 +7,9 @@
 {% block main %}
     <h2 class="spisokberry">Список ягод</h2>
     <div class="berryblock">
+        <hr class="berryhr">
         {% for f in berry %}
-        {{ f.name }}. <img class='berry' src="{{ url_for('static', filename='berries/') + f.image}}">. {{ f.description }}. {{ f.str }} стр.<br><hr class="berryhr">
+        <div class="zagl">{{ f.name }}</div> <img class='berry' src="{{ url_for('static', filename='berries/') + f.image}}">{{ f.description }} {{ f.str }}<br><hr class="berryhr">
         {% endfor %}
     </div>
 {% endblock %}

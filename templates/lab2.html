@@ -6,10 +6,20 @@
 {# Основной контент: #}
 {% block main %}
     <h1>Шаблоны</h1>
-    <div>Тема лабораторной - шаблоны. Список сделанных страниц:</div>
-    <ol>
-        <li>
-            <a href="/lab2/example">example</a>
-        </li>
-    </ol>
+    <div><b>Тема лабораторной - шаблоны. Список сделанных страниц:</b></div>
+    <div class="spisoklab">
+        <ol class="text">
+            <li><a href="/lab2/example">example</a><br>
+            <li><a href="/lab2/a">Без слеша</a><br>
+            <li><a href="/lab2/a/">Со слешем</a><br>
+            <li><a href="/lab2/flowers/0">Выбор цветка</a><br>
+            <li><a href="/lab2/add_flower/">Добавление цветка</a><br>
+            <li><a href="/lab2/spisok_flower">Список цветков</a><br>
+            <li><a href="/lab2/clear_flower">Очистка списка</a><br>
+            <li><a href="/lab2/filters">Фильтры</a><br>
+            <li><a href="/lab2/calc/">Калькулятор</a><br>
+            <li><a href="/lab2/books">Список книг</a><br>
+            <li><a href="/lab2/berry">Список ягод</a><br>
+        </ol>
+    </div>
 {% endblock %}
