@@ -391,12 +391,16 @@ flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашк
 @app.route("/lab2/flowers/<int:flower_id>")
 def flowers(flower_id):
     css = url_for('static', filename='main.css')
+    fav1 = url_for('static', filename='favicon1.png')
+    fav = url_for('static', filename='favicon.png') 
     if flower_id >= len(flower_list):
         abort(404)
     else:    
         return '''<!doctype html>
             <html>
             <link rel="stylesheet" href="''' + css + '''">
+            <link rel="icon" href="''' + fav + '''">
+            <link rel="icon" href="''' + fav1 + '''">
             <body>
                 <title>НГТУ, ФБ, Лабораторная работа 2</title>
                 <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
@@ -409,11 +413,15 @@ def flowers(flower_id):
     
 @app.route("/lab2/add_flower/<name>")
 def add_flower(name):
-    css = url_for('static', filename='main.css') 
+    css = url_for('static', filename='main.css')
+    fav1 = url_for('static', filename='favicon1.png')
+    fav = url_for('static', filename='favicon.png') 
     flower_list.append(name)
     return f'''<!doctype html>
         <html>
         <link rel="stylesheet" href="{css}">
+        <link rel="icon" href="{fav}">
+        <link rel="icon" href="{fav1}">
         <body>
                 <title>НГТУ, ФБ, Лабораторная работа 2</title>
                 <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
@@ -438,10 +446,14 @@ def spisok_flower():
 @app.route("/lab2/clear_flower")
 def clear_flower():
     css = url_for('static', filename='main.css') 
+    fav1 = url_for('static', filename='favicon1.png')
+    fav = url_for('static', filename='favicon.png')
     flower_list.clear()
     return f'''<!doctype html>
             <html>
             <link rel="stylesheet" href="{css}">
+            <link rel="icon" href="{fav}">
+            <link rel="icon" href="{fav1}">
             <body>
                     <title>НГТУ, ФБ, Лабораторная работа 2</title>
                     <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
@@ -479,6 +491,8 @@ def filters():
 @app.route("/lab2/calc/<int:a>/<int:b>")
 def calc(a, b):
     css = url_for('static', filename='main.css')
+    fav1 = url_for('static', filename='favicon1.png')
+    fav = url_for('static', filename='favicon.png')
     
     sum = a + b
     minus = a - b
@@ -496,6 +510,8 @@ def calc(a, b):
     return f'''<!doctype html>
         <html>
         <link rel="stylesheet" href="{css}">
+        <link rel="icon" href="{fav}">
+        <link rel="icon" href="{fav1}">
         <body>
             <title>НГТУ, ФБ, Лабораторная работа 2</title>
             <header>НГТУ, ФБ, WEB-программирование, Лабораторная 2</header>
