@@ -236,3 +236,18 @@ h1 {
     transform: scale(1.1); 
     background: rgba(0, 0, 0, 0.4);
 }
+
+.erroruser {
+    display: inline-block;
+    color: rgb(197, 0, 0);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 19px;
+    text-decoration: underline;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+.erroruser:hover {
+    transform: scale(1.1); 
+    transition: 0.5s ease;
+    color: red;
+}
