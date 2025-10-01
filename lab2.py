@@ -55,7 +55,7 @@ def add_flower(name):
     css = url_for('static', filename='main.css')
     fav1 = url_for('static', filename='favicon1.png')
     fav = url_for('static', filename='favicon.png') 
-    flower_list.lab2end(name)
+    flower_list.append(name)
     return f'''<!doctype html>
         <html>
         <link rel="stylesheet" href="{css}">
