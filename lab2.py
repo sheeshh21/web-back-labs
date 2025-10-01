@@ -128,7 +128,7 @@ def lab():
 
 @lab2.route('/lab2/filters')
 def filters():
-    phrase = 'О <b>сколько</b> <u>нам</u> <i>отркытий</i> чудных...'
+    phrase = 'О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных...'
     return render_template('filter.html', phrase=phrase)
 
 
@@ -330,7 +330,7 @@ def flowers_advanced():
         flower_name = request.form.get('flower_name')
         flower_price = request.form.get('flower_price')
         if flower_name and flower_price:
-            flowers_with_prices.lab2end({'name': flower_name, 'price': int(flower_price)})
+            flowers_with_prices.append({'name': flower_name, 'price': int(flower_price)})
 
     return render_template('flowers_advanced.html', flowers=flowers_with_prices)
 
@@ -338,7 +338,7 @@ def flowers_advanced():
 @lab2.route('/lab2/add_flower_advanced/<name>/<int:price>')
 def add_flower_advanced(name, price):
 
-    flowers_with_prices.lab2end({'name': name, 'price': price})
+    flowers_with_prices.append({'name': name, 'price': price})
     return redirect('/lab2/flowers_advanced/')
 
 
