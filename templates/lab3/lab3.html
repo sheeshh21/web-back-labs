@@ -7,7 +7,11 @@
 {% block main %}
     <h1>Формы</h1>
     <div><b>Тема лабораторной - формы, cookie. Список сделанных страниц:</b></div>
-    <div>Привет, <span style="color: {{name_color}}">{{ name }}</span>!</div>
+    <div>
+        Привет, <span style="color: {{ name_color or 'white' }}">{{ name or 'Аноним' }}</span>
+    </div>
+    
+    <div>Возраст: {{ age or 'Неизвестен' }}</div>
     <div class="spisoklab">
         <ol class="text">
             <li><a href="/lab3/cookie">Куки</a><br>

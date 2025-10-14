@@ -99,3 +99,42 @@ def settings():
     font_size = request.cookies.get('font_size')
     opacity = request.cookies.get('opacity')
     return render_template('lab3/settings.html', color=color, bg_color=bg_color, font_size=font_size, opacity=opacity)
+
+
+@lab3.route('/lab3/ticket')
+def ticket():
+    return render_template('lab3/ticket.html')
+
+@lab3.route('/lab3/itogticket')
+def itogticket():
+    price = 0
+
+    age = int(request.args.get('age'))
+    if age < 18:
+        price = 700
+        child = True
+    else:
+        price = 1000
+        child = False
+
+    position = request.args.get('position')
+    if position == 'lower' or position == 'lowerside':
+        price += 100
+
+    belie = request.args.get('belie')
+    if belie == 'on':
+        price += 75
+
+    bagaj = request.args.get('bagaj')
+    if bagaj == 'on':
+        price += 250
+
+    strahovka = request.args.get('strahovka')
+    if strahovka == 'on':
+        price += 150
+
+    return render_template('lab3/itogticket.html',price=price, child=child, strahovka=strahovka, bagaj=bagaj, 
+                            belie=belie, position=position, age=age, fio=request.args.get('fio'),
+                            viezd=request.args.get('viezd'),
+                            naznach=request.args.get('naznach'),
+                            data=request.args.get('data'))

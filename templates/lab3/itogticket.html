@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block number_lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    
+    <div>
+        <div>Пассажир: {{ fio }}</div>
+        <div>Возраст: {{ age }} лет</div>
+        <div>Тип билета: {{ 'детский' if child else 'взрослый' }}</div>
+        <div>Дата: {{ data }}</div>
+        <div>Маршрут: из {{ viezd }} в {{ naznach }}</div>
+        <div>Стоимость билета: {{ price }} руб.</div>
+    </div>
+
+{% endblock %}

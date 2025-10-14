@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block number_lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    
+    <h1>Билет</h1>
+
+    <form action="/lab3/itogticket">
+        <div>
+            <label>ФИО<br><input name="fio" type="text"></label>
+        </div>
+        <div>Полка<br>
+            <label><input value="lower" name="position" type="radio" checked>Нижняя</label>
+            <label><input value="upper" name="position" type="radio">Верхняя</label>
+            <label><input value="upperside" name="position" type="radio">Верхняя боковая</label>
+            <label><input value="lowerside" name="position" type="radio">Нижняя боковая</label>
+        </div>
+
+        <div>Дополнения<br>
+            <label><input name="dop" value="belie" type="checkbox">Бельё</label>
+            <label><input name="dop" value="bagaj" type="checkbox">Багаж</label>
+        </div>
+
+        <div>Возраст<br>
+            <input name="age" type="number" min="1" max="120" required>
+        </div>
+
+        <div>Пункт выезда<br>
+            <label><input name="viezd" type="text"></label>
+        </div>
+
+        <div>Пункт назначения<br>
+            <label><input name="naznach" type="text"></label>
+        </div>
+
+        <div>Дата поездки<br>
+            <label><input name="data" type="date"></label>
+        </div>
+
+        <div>Страховка<br>
+            <label><input name="strahovka" value="strahovka" type="checkbox"></label>
+        </div>
+
+        <div>
+            <button class="button" type="submit">Оформить</button>
+        </div>
+    </form>
+
+{% endblock %}
