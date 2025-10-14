@@ -146,3 +146,67 @@ def itogticket():
                             viezd=request.args.get('viezd'),
                             naznach=request.args.get('naznach'),
                             data=request.args.get('data'))
+
+
+products = [
+    {"name": "Смартфон Samsung Galaxy S21", "price": 59999, "brand": "Samsung", "color": "черный", "storage": "128GB"},
+    {"name": "Смартфон Apple iPhone 13", "price": 79999, "brand": "Apple", "color": "белый", "storage": "128GB"},
+    {"name": "Смартфон Xiaomi Redmi Note 11", "price": 19999, "brand": "Xiaomi", "color": "синий", "storage": "64GB"},
+    {"name": "Смартфон Google Pixel 6", "price": 54999, "brand": "Google", "color": "зеленый", "storage": "128GB"},
+    {"name": "Смартфон OnePlus 9", "price": 45999, "brand": "OnePlus", "color": "фиолетовый", "storage": "128GB"},
+    {"name": "Смартфон Samsung Galaxy A52", "price": 24999, "brand": "Samsung", "color": "голубой", "storage": "128GB"},
+    {"name": "Смартфон Apple iPhone 12", "price": 64999, "brand": "Apple", "color": "красный", "storage": "64GB"},
+    {"name": "Смартфон Realme 8", "price": 15999, "brand": "Realme", "color": "черный", "storage": "128GB"},
+    {"name": "Смартфон Huawei P50", "price": 49999, "brand": "Huawei", "color": "золотой", "storage": "256GB"},
+    {"name": "Смартфон Sony Xperia 5 III", "price": 69999, "brand": "Sony", "color": "черный", "storage": "128GB"},
+    {"name": "Смартфон Oppo Find X3", "price": 44999, "brand": "Oppo", "color": "синий", "storage": "256GB"},
+    {"name": "Смартфон Vivo X70", "price": 39999, "brand": "Vivo", "color": "черный", "storage": "128GB"},
+    {"name": "Смартфон Motorola Edge 20", "price": 29999, "brand": "Motorola", "color": "белый", "storage": "128GB"},
+    {"name": "Смартфон Nokia G50", "price": 18999, "brand": "Nokia", "color": "синий", "storage": "128GB"},
+    {"name": "Смартфон Apple iPhone SE", "price": 39999, "brand": "Apple", "color": "красный", "storage": "64GB"},
+    {"name": "Смартфон Samsung Galaxy Z Flip3", "price": 89999, "brand": "Samsung", "color": "фиолетовый", "storage": "256GB"},
+    {"name": "Смартфон Xiaomi Mi 11 Lite", "price": 27999, "brand": "Xiaomi", "color": "розовый", "storage": "128GB"},
+    {"name": "Смартфон Google Pixel 5a", "price": 34999, "brand": "Google", "color": "черный", "storage": "128GB"},
+    {"name": "Смартфон OnePlus Nord 2", "price": 31999, "brand": "OnePlus", "color": "синий", "storage": "128GB"},
+    {"name": "Смартфон Asus Zenfone 8", "price": 42999, "brand": "Asus", "color": "черный", "storage": "128GB"}
+]
+
+
+@lab3.route('/lab3/products')
+def products_search():
+    prices = [p['price'] for p in products]
+    min_all = min(prices)
+    max_all = max(prices)
+
+    if request.args.get('reset'):
+        resp = make_response(redirect('/lab3/products'))
+        resp.delete_cookie('min_price')
+        resp.delete_cookie('max_price')
+        return resp
+    
+    min_price = request.args.get('min_price') or request.cookies.get('min_price', '')
+    max_price = request.args.get('max_price') or request.cookies.get('max_price', '')
+
+    if request.args.get('min_price') is not None:
+        resp = make_response(redirect('/lab3/products'))
+        resp.set_cookie('min_price', min_price)
+        resp.set_cookie('max_price', max_price)
+        return resp
+
+    filtered_products = products
+    
+    if min_price or max_price:
+        min_val = float(min_price) if min_price else min_all
+        max_val = float(max_price) if max_price else max_all
+        
+        if min_val > max_val:
+            min_val, max_val = max_val, min_val
+        
+        filtered_products = [p for p in products if min_val <= p['price'] <= max_val]
+    
+    return render_template('lab3/products.html', 
+                         products=filtered_products,
+                         min_price=min_price,
+                         max_price=max_price,
+                         min_all=min_all,
+                         max_all=max_all)
