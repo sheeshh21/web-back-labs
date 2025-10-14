@@ -100,6 +100,14 @@ def settings():
     opacity = request.cookies.get('opacity')
     return render_template('lab3/settings.html', color=color, bg_color=bg_color, font_size=font_size, opacity=opacity)
 
+@lab3.route('/lab3/clear')
+def clear():
+    resp = make_response(redirect('/lab3/settings'))
+    resp.delete_cookie('color')
+    resp.delete_cookie('bg_color')
+    resp.delete_cookie('font_size')
+    resp.delete_cookie('opacity')
+    return resp
 
 @lab3.route('/lab3/ticket')
 def ticket():

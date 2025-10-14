@@ -8,7 +8,7 @@
 
     <form action="/lab3/itogticket">
         <div>
-            <label>ФИО<br><input name="fio" type="text"></label>
+            <label>ФИО<br><input name="fio" type="text" placeholder="Введите ФИО" required></label>
         </div>
         <div>Полка<br>
             <label><input value="lower" name="position" type="radio" checked>Нижняя</label>
@@ -27,15 +27,15 @@
         </div>
 
         <div>Пункт выезда<br>
-            <label><input name="viezd" type="text"></label>
+            <label><input name="viezd" type="text" placeholder="Введите пункт выезда" required></label>
         </div>
 
         <div>Пункт назначения<br>
-            <label><input name="naznach" type="text"></label>
+            <label><input name="naznach" type="text" placeholder="Введите пункт назначения" required></label>
         </div>
 
         <div>Дата поездки<br>
-            <label><input name="data" type="date"></label>
+            <label><input name="data" type="date" required></label>
         </div>
 
         <div>Страховка<br>
