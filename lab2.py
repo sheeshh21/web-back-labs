@@ -9,7 +9,7 @@ def a1():
 
 @lab2.route("/lab2/a/")
 def a2():
-    css = url_for('static', filename='main.css')
+    css = url_for('static', filename='lab1/main.css')
     return '''<!doctype html>
         <html> 
         <link rel="stylesheet" href="''' + css + '''">
@@ -28,7 +28,7 @@ flower_list = ['роза', 'тюльпан', 'незабудка', 'ромашк
 
 @lab2.route("/lab2/flowers/<int:flower_id>")
 def flowers(flower_id):
-    css = url_for('static', filename='main.css')
+    css = url_for('static', filename='lab1/main.css')
     fav1 = url_for('static', filename='favicon1.png')
     fav = url_for('static', filename='favicon.png') 
     if flower_id >= len(flower_list):
@@ -52,7 +52,7 @@ def flowers(flower_id):
 
 @lab2.route("/lab2/add_flower/<name>")
 def add_flower(name):
-    css = url_for('static', filename='main.css')
+    css = url_for('static', filename='lab1/main.css')
     fav1 = url_for('static', filename='favicon1.png')
     fav = url_for('static', filename='favicon.png') 
     flower_list.append(name)
@@ -75,17 +75,17 @@ def add_flower(name):
 
 @lab2.route("/lab2/add_flower/")
 def none_flower():
-    return render_template('none_flower.html')
+    return render_template('lab2/none_flower.html')
 
 
 @lab2.route('/lab2/spisok_flower/')
 def all_flowers():
-    return render_template('spisok_flower.html', flowers=flower_list)
+    return render_template('lab2/spisok_flower.html', flowers=flower_list)
 
 
 @lab2.route("/lab2/clear_flower")
 def clear_flower():
-    css = url_for('static', filename='main.css') 
+    css = url_for('static', filename='lab1/main.css') 
     fav1 = url_for('static', filename='favicon1.png')
     fav = url_for('static', filename='favicon.png')
     flower_list.clear()
@@ -118,23 +118,23 @@ def example():
         {'name': 'мандарины', 'price': 95},    
         {'name': 'манго', 'price': 321}        
     ]
-    return render_template('example.html', number_lab=number_lab, name=name, group=group, course=course, fruits=fruits)
+    return render_template('lab2/example.html', number_lab=number_lab, name=name, group=group, course=course, fruits=fruits)
 
 
 @lab2.route('/lab2/')
 def lab():
-    return render_template('lab2.html')
+    return render_template('lab2/lab2.html')
 
 
 @lab2.route('/lab2/filters')
 def filters():
     phrase = 'О <b>сколько</b> <u>нам</u> <i>открытий</i> чудных...'
-    return render_template('filter.html', phrase=phrase)
+    return render_template('lab2/filter.html', phrase=phrase)
 
 
 @lab2.route("/lab2/calc/<int:a>/<int:b>")
 def calc(a, b):
-    css = url_for('static', filename='main.css')
+    css = url_for('static', filename='lab1/main.css')
     fav1 = url_for('static', filename='favicon1.png')
     fav = url_for('static', filename='favicon.png')
     
@@ -201,7 +201,7 @@ def books():
     {'author': 'Джордж Оруэлл', 'name': '1984', 'genre': 'Антиутопия', 'str': 328},
     {'author': 'Рэй Брэдбери', 'name': '451° по Фаренгейту', 'genre': 'Научная фантастика', 'str': 256}
 ]
-    return render_template('books.html', books=books)
+    return render_template('lab2/books.html', books=books)
 
 
 @lab2.route('/lab2/berry')
@@ -313,7 +313,7 @@ def berry():
         'description': 'Желто-оранжевая ягода, растущая в северных регионах.'
     },
 ]
-    return render_template('berry.html', berry=berry)
+    return render_template('lab2/berry.html', berry=berry)
 
 flowers_with_prices = [
     {'name': 'роза', 'price': 300},
@@ -332,7 +332,7 @@ def flowers_advanced():
         if flower_name and flower_price:
             flowers_with_prices.append({'name': flower_name, 'price': int(flower_price)})
 
-    return render_template('flowers_advanced.html', flowers=flowers_with_prices)
+    return render_template('lab2/flowers_advanced.html', flowers=flowers_with_prices)
 
 
 @lab2.route('/lab2/add_flower_advanced/<name>/<int:price>')

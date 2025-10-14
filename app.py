@@ -11,7 +11,7 @@ app.register_blueprint(lab3)
 
 @app.route("/index")
 def index():
-    css = url_for('static', filename='main.css')
+    css = url_for('static', filename='lab1/main.css')
 
     return '''<!doctype html>
         <html> 
@@ -28,7 +28,7 @@ def index():
 
 @app.route("/")
 def a():
-    css = url_for('static', filename='main.css')
+    css = url_for('static', filename='lab1/main.css')
 
     return '''<!doctype html>
         <html> 
