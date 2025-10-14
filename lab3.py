@@ -78,24 +78,24 @@ def end():
 @lab3.route('/lab3/settings')
 def settings():
     color = request.args.get('color')
-    backgroundColor = request.args.get('backgroundColor')
-    fontSize = request.args.get('fontSize')
-    textshadow = request.args.get('textshadow')
-    
-    if color or backgroundColor or fontSize or textshadow:
+    bg_color = request.args.get('bg_color')
+    font_size = request.args.get('font_size')
+    opacity = request.args.get('opacity')
+
+    if color or bg_color or font_size or opacity:
         resp = make_response(redirect('/lab3/settings'))
         if color:
             resp.set_cookie('color', color)
-        if backgroundColor:
-            resp.set_cookie('backgroundColor', backgroundColor)
-        if fontSize:
-            resp.set_cookie('fontSize', fontSize)
-        if textshadow:
-            resp.set_cookie('textshadow', textshadow)
+        if bg_color:
+            resp.set_cookie('bg_color', bg_color)
+        if font_size:
+            resp.set_cookie('font_size', font_size)
+        if opacity:
+            resp.set_cookie('opacity', opacity)
         return resp
 
     color = request.cookies.get('color')
-    backgroundColor = request.cookies.get('backgroundColor')
-    fontSize = request.cookies.get('fontSize')
-    textshadow = request.cookies.get('textshadow')
-    return render_template('lab3/settings.html', color=color, backgroundColor=backgroundColor, fontSize=fontSize, textshadow=textshadow)
+    bg_color = request.cookies.get('bg_color')
+    font_size = request.cookies.get('font_size')
+    opacity = request.cookies.get('opacity')
+    return render_template('lab3/settings.html', color=color, bg_color=bg_color, font_size=font_size, opacity=opacity)
