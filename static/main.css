@@ -251,3 +251,160 @@ h1 {
     transition: 0.5s ease;
     color: red;
 }
+
+.block {
+    background-color: rgba(125, 212, 255, 0.678);
+    display: inline-block;
+    border: 2px solid black;
+    width: 30%;
+    border-radius: 10px;
+    
+}
+
+.coffee {
+    padding: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.coffee1 {
+    background-color: rgba(17, 176, 255, 0.648);
+    display: block;
+    padding: 10px;
+    border-radius: 15px;
+    transition: 0.3s ease;
+    border: 2px solid rgb(97, 176, 255);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.447);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+.coffee1:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease;
+    cursor: pointer;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.447);
+    border: 2px solid rgb(59, 89, 107);
+}
+
+.coffee:active {
+    transform: scale(0.9);
+    transition: 0.3s ease;
+    opacity: 0.4;
+}
+
+.coffee {
+    transition: 0.5s ease;
+}
+
+.lin {
+    border: 1px solid black;
+    width: 100%;
+}
+
+.button {
+    background: linear-gradient(rgb(114, 165, 226),rgb(211, 224, 255),rgb(114, 165, 226));
+    width: 50%;
+    padding: 13px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid rgb(115, 176, 251);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.447);
+    transition: 0.3s ease;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+.button:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.447);
+}
+
+.button:active {
+    transform: scale(0.9);
+    transition: 0.3s ease;
+    opacity: 0.4;
+}
+
+.button {
+    transition: 0.5s ease;
+}
+
+.block2 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: rgba(96, 96, 176, 0.764);
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 12px;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.price {
+    background-color: rgba(125, 212, 255, 0.678);
+    display: inline-block;
+    border: 2px solid black;
+    width: 25%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 24px;
+    border-top: 12px solid rgba(0, 0, 0, 0.712);
+    margin-left: 20px;
+}
+
+.price1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    padding: 5px;
+    background-color: rgba(161, 255, 220, 0.764);
+}
+
+.napitki {
+    background-color: aquamarine;
+    padding: 10px;
+    width: 80%;
+    border-right: 6px solid rgba(0, 0, 0, 0.712);
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: left;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.napitki1 {
+    font-style: italic;
+    font-size: 20px;
+}
+
+.dobavki {
+    background-color: aquamarine;
+    padding: 10px;
+    margin-top: 20px;
+    width: 80%;
+    border-right: 6px solid rgba(0, 0, 0, 0.712);
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: left;
+    border-radius: 5px;
+    text-align: left;
+    
+}
+
+.zagl {
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 7px solid rgba(0, 0, 0, 0.712);
+    border-bottom: 2px solid black;
+    text-align: center;
+    font-size: 25px;
+    padding: 0px;
+    background-color: rgb(171, 235, 214);
+    border-radius: 1px;
+}

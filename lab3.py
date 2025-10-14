@@ -47,6 +47,7 @@ def order():
     return render_template('lab3/order.html')
 
 
+
 @lab3.route('/lab3/pay')
 def pay():
     price = 0
@@ -65,3 +66,10 @@ def pay():
         price += 10
 
     return render_template('/lab3/pay.html', price=price)
+
+
+
+@lab3.route('/lab3/end')
+def end():
+    price = request.args.get('price')
+    return render_template('/lab3/end.html', price=price)
