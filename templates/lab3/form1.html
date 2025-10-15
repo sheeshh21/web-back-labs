@@ -11,8 +11,8 @@
     <h1>Привет. {{ user }}!</h1>
     <h2>Добро пожаловать на наш сайт!</h2>
 
-    <div>ваш возраст: {{ age }}</div>
-    <div>ваш пол: {{ 'мужской' if sex == 'male' else 'женский' }}</div>
+    <div class="block2">ваш возраст:<br> {{ age }}</div>
+    <div class="block2">ваш пол:<br> {{ 'мужской' if sex == 'male' else 'женский' }}</div>
     <div>
         <a href="/lab3/form1">Заново</a>
     </div>
@@ -22,28 +22,28 @@
     <h1>Пользователь</h1>
 
     <form>
-        <label>Ваше имя:</label>
+        <div class="block2">Ваше имя:</div>
         <div>
-            <input type="text" placeholder="как вас зовут?" name="user" value="{{ user or ''}}"><br>
+            <input class="karta" type="text" placeholder="как вас зовут?" name="user" value="{{ user or ''}}"><br>
             <u class="u"><span class="erroruser">{{ errors.user }}</span></u>
         </div>
 
-        <label>Ваш возраст:</label>
+        <div class="block2">Ваш возраст:</div>
         <div>
-            <input type="number" name='age' value="{{ age or '' }}"><br>
+            <input class="karta" type="number" name='age' value="{{ age or '' }}" placeholder="ваш возраст?"><br>
             <span class="erroruser">{{ errors1.age }}</span>
         </div>
 
-        <label>Ваш пол:</label>
+        <div class="block2">Ваш пол:</div>
         <div>
-            <select name="sex">
-                <option value="male" {{ sex == 'male' and 'selected' }}>мужчина</option>
-                <option value="female" {{ sex == 'female' and 'selected' }}>женщина</option>
+            <select class="karta" name="sex">
+                <option class="karta" value="male" {{ sex == 'male' and 'selected' }}>мужчина</option>
+                <option class="karta" value="female" {{ sex == 'female' and 'selected' }}>женщина</option>
             </select>
         </div>
 
         <div>
-            <button type="submit">Отправить</button>
+            <button class="button" type="submit">Отправить</button>
         </div>
     </form>
     {% endif %}
