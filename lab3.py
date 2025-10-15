@@ -188,7 +188,7 @@ def products_search():
     min_price = request.args.get('min_price') or request.cookies.get('min_price', '')
     max_price = request.args.get('max_price') or request.cookies.get('max_price', '')
 
-    if request.args.get('min_price') is not None:
+    if request.args.get('min_price'):
         resp = make_response(redirect('/lab3/products'))
         resp.set_cookie('min_price', min_price)
         resp.set_cookie('max_price', max_price)
