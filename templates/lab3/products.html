@@ -5,31 +5,31 @@
 {% block main %}
     <h1>Поиск товаров</h1>
 
-    <form method="get">
+    <form class="block">
         <div>
-            <label>Мин цена:</label>
-            <input type="number" name="min_price" value="{{ min_price }}" placeholder="{{ min_all }}">
+            <label>Мин цена:</label><br>
+            <input class="cena" type="number" name="min_price" value="{{ min_price }}" placeholder="{{ min_all }}">
         </div>
 
         <div>
-            <label>Макс цена:</label>
-            <input type="number" name="max_price" value="{{ max_price }}" placeholder="{{ max_all }}">
+            <label>Макс цена:</label><br>
+            <input class="cena" type="number" name="max_price" value="{{ max_price }}" placeholder="{{ max_all }}">
         </div>
 
         <div>
-            <button type="submit">Искать</button>
-            <button type="submit" name="reset" value="1">Сброс</button>
+            <button class="button" type="submit">Искать</button>
+            <button class="button" type="submit" name="reset" value="1">Сброс</button>
         </div>
     </form>
 
-    <h2>Найдено: {{ products|length }} товаров</h2>
+    <h2 class="block3">Найдено: {{ products|length }} товаров</h2>
 
     {% if products|length == 0 %}
         <p>Не найдено ни одного товара</p>
     {% else %}
         <div style="margin-top: 20px;">
             {% for product in products %}
-            <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 5px;">
+            <div class="block3" >
                 <h3 style="margin: 0 0 10px 0;">{{ product.name }}</h3>
                 <p style="margin: 5px 0;"><strong>Цена:</strong> {{ product.price }} руб.</p>
                 <p style="margin: 5px 0;"><strong>Бренд:</strong> {{ product.brand }}</p>
@@ -39,8 +39,4 @@
             {% endfor %}
         </div>
     {% endif %}
-
-    <div>
-        <a href="/lab3/">Все задания</a>
-    </div>
 {% endblock %}

@@ -408,3 +408,65 @@ h1 {
     background-color: rgb(171, 235, 214);
     border-radius: 1px;
 }
+
+.karta {
+    width: 250px;
+    height: 25px;
+    border-radius: 7px;
+    font-size: 20px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    cursor: pointer;
+}
+
+.karta2 {
+    width: 50px;
+    height: 25px;
+    border-radius: 7px;
+    font-size: 20px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    cursor: pointer;
+}
+
+.karta:hover {
+    border: 2px solid rgb(192, 234, 192);
+}
+
+.karta2:hover {
+    border: 2px solid rgb(192, 234, 192);
+}
+
+.cook {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.bilet {
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.cena {
+    width: 170px;
+    height: 25px;
+    border-radius: 7px;
+    font-size: 20px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    cursor: pointer;
+}
+
+.cena:hover {
+    border: 2px solid rgb(192, 234, 192);
+}
+
+.block3 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 26px;
+    background-color: rgba(96, 96, 176, 0.764);
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    padding: 12px;
+    margin-top: 13px;
+    margin-bottom: 13px;
+    border-radius: 3px;
+    
+}

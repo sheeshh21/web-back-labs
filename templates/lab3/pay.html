@@ -1,36 +1,42 @@
 {% extends "base.html" %}
 
-{# Номер лабораторной работы: #}
 {% block number_lab %}Лабораторная работа 3{% endblock %}
+<style>
+    .karta {
+        background-color: red;
+    }
+</style>
 
-{# Основной контент: #}
 {% block main %}
     <h1>Оплата</h1>
 
-    <div>
+    <div class="block2">
         Сумма к оплате: {{ price }}
     </div>
 
     <form action="/lab3/end">
         <input type="hidden" name="price" value="{{ price }}">
 
-        <div>Номер банковской карты:</div>
+        <div class="block2">Номер банковской карты:<br>
         <label>
-            <input type="text" name="card" pattern="\d{16}">
+            <input class="karta" type="text" name="card" pattern="\d{16}" placeholder="1234 1234 1234 1234" required>
         </label>
+        </div>
 
-        <div>Имя держателя карты:</div>
+        <div class="block2">Имя держателя карты:<br>
         <label>
-            <input type="text" name="name">
+            <input class="karta" type="text" name="name" placeholder="IVAN IVANOV" required>
         </label>
+        </div>
 
-        <div>Номер CVV:</div>
+        <div class="block2">Номер CVV:<br>
         <label>
-            <input type="text" name="cvv" size="3" pattern="\d{3}">
+            <input  class="karta2" type="text" name="cvv" size="3" pattern="\d{3}" placeholder="123" required>
         </label>
+        </div>
 
         <div>
-            <button type="submit">Оплатить</button><br>
+            <button type="submit" class="button">Оплатить</button><br>
             <a href="/lab3/order">Отказаться</a>
         </div>
     </form>

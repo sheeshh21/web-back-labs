@@ -4,13 +4,13 @@
 
 {% block main %}
     
-    <div>
-        <div>Пассажир: {{ fio }}</div>
-        <div>Возраст: {{ age }} лет</div>
-        <div>Тип билета: {{ 'детский' if child else 'взрослый' }}</div>
-        <div>Дата: {{ data }}</div>
-        <div>Маршрут: из {{ viezd }} в {{ naznach }}</div>
-        <div>Стоимость билета: {{ price }} руб.</div>
+    <div class="block bilet">Железнодорожный билет
+        <div class="block2">Пассажир: <br> {{ fio }}</div>
+        <div class="block2">Возраст: <br> {{ age }} лет</div>
+        <div class="block2">Тип билета: <br> {{ 'детский' if child else 'взрослый' }}</div>
+        <div class="block2">Дата: <br> {{ data }}</div>
+        <div class="block2">Маршрут: <br> из {{ viezd }} в {{ naznach }}</div>
+        <div class="block2">Стоимость билета: <br> {{ price }} руб.</div>
     </div>
 
 {% endblock %}
