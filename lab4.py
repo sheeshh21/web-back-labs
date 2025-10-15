@@ -75,7 +75,7 @@ def stepen():
     x2 = request.form.get('x2')
 
     if x1 == '' or x2 == '':
-        return render_template('lab4/vichit.html', error='Оба значения должны быть заполнены')
+        return render_template('lab4/stepen.html', error='Оба значения должны быть заполнены')
 
     if x1 == '0' and x2 == '0':
         return render_template('lab4/stepen.html', error2='Оба поля не должны равняться 0')
@@ -85,3 +85,20 @@ def stepen():
     result = x1 ** x2
 
     return render_template('lab4/stepen.html', x1=x1, x2=x2, result=result)
+
+tree_count = 0
+@lab4.route('/lab4/tree', methods = ['GET', 'POST'])
+def tree():
+    global tree_count
+    if request.method == 'GET':
+        return render_template('lab4/tree.html', tree_count=tree_count)
+    
+    if request.method == 'POST':
+        operation = request.form.get('operation')
+
+    if operation == 'cut':
+        tree_count -= 1
+    elif operation == 'plant':
+        tree_count += 1
+    
+    return render_template('lab4/tree.html', tree_count=tree_count)
