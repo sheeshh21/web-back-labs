@@ -100,5 +100,8 @@ def tree():
         tree_count -= 1
     elif operation == 'plant':
         tree_count += 1
+
+    if tree_count <= -1:
+        return render_template('lab4/tree.html', error='Нельзя срубить отрицательное количество деревьев!')
     
     return redirect('/lab4/tree')
