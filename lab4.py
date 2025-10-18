@@ -184,3 +184,51 @@ def xolodilnik():
         return render_template('lab4/xolodilnik.html', temp=temp, snowflakes=snowflakes)
     else:
         return render_template('lab4/xolodilnik.html', temp=temp)
+    
+
+@lab4.route('/lab4/zerno', methods=['GET', 'POST'])
+def zerno():
+    if request.method == 'POST':
+        zerno = request.form.get('zerno')
+        ves1 = request.form.get('ves')
+
+        # Проверка на выбор зерна
+        if not zerno:
+            error = 'Ошибка: выберите зерно!'
+            return render_template('lab4/zerno.html', error=error)
+
+        if ves1 == '':
+            error = 'Ошибка: вес не указан!'
+            return render_template('lab4/zerno.html', error=error)
+        
+        ves = float(ves1)
+
+        if ves <= 0:
+            error = 'Ошибка: вес должен быть больше 0'
+            return render_template('lab4/zerno.html', error=error)
+        
+        if ves > 100:
+            error = 'Извините, но данного объема сейчас нет в наличии'
+            return render_template('lab4/zerno.html', error=error)
+        
+        if zerno == 'ячмень':
+            price = 12000
+        elif zerno == 'овёс':
+            price = 8500
+        elif zerno == 'пшеница':
+            price = 9000
+        elif zerno == 'рожь':
+            price = 15000
+        else:
+            price = 0
+
+        itog = ves * price
+
+        discount = 0
+        if ves > 10:
+            discount = itog * 0.1
+            itog -= discount
+            
+        return render_template('lab4/zerno.html', success=True, zerno=zerno, ves=ves, itog=itog, discount=discount)
+    
+    return render_template('lab4/zerno.html')
