@@ -3,37 +3,38 @@
 {% block number_lab %}Лабораторная работа 4{% endblock %}
 
 {% block main %}
-    
-    <form method="post">
-        <div>
-            <h1>Установите температуру холодильника</h1>
-            <label for="temp">Температура:</label>
-            <input id="temp" name="temp" type="number" step="0.1" value="{{ temp if temp }}">
-        </div>
-        <div>
-            <button type="submit">Установить</button>
-        </div>
-        
-        <div>
-            {% if error %}
-                <p class="errorlog">{{ error }}</p>
-            {% elif temp %}
-                <p>Установлена температура: {{ temp }}°C</p>
-                {% if snowflakes == 3 %}
-                    <p>
-                        ❄️ ❄️ ❄️
-                    </p>
-                {% elif snowflakes == 2 %}
-                    <p>
-                        ❄️ ❄️
-                    </p>
-                {% elif snowflakes == 1 %}
-                    <p>
-                        ❄️
-                    </p>
+    <h2 class="block2">Холодильник</h2>
+    <div class="register-container">
+        <form method="post" class="register-form">
+            <div class="form-group">
+                <label class="form-label" for="temp">Температура:</label><br>
+                <input class="form-input" id="temp" name="temp" type="number" step="0.1" value="{{ temp if temp }}">
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Установить</button>
+            </div>
+            
+            <div>
+                {% if error %}
+                    <p class="errorlog">{{ error }}</p>
+                {% elif temp %}
+                    <p>Установлена температура: {{ temp }}°C</p>
+                    {% if snowflakes == 3 %}
+                        <p>
+                            ❄️ ❄️ ❄️
+                        </p>
+                    {% elif snowflakes == 2 %}
+                        <p>
+                            ❄️ ❄️
+                        </p>
+                    {% elif snowflakes == 1 %}
+                        <p>
+                            ❄️
+                        </p>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-        </div>
-    </form>
+            </div>
+        </form>
+    </div>
 
 {% endblock %}

@@ -157,6 +157,90 @@ def logout():
     return redirect('/lab4/login')
 
 
+@lab4.route('/lab4/register', methods = ['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('lab4/register.html')
+    
+    login = request.form.get('login')
+    password = request.form.get('password')
+    confirm_password = request.form.get('confirm_password')
+    name = request.form.get('name')
+
+    if password != confirm_password:
+        return render_template('lab4/register.html', error='Ошибка: Пароли не совпадают!')
+    
+    users.append({
+        'login': login,
+        'password': password,
+        'name': name
+    })
+    return redirect('/lab4/login')
+
+
+@lab4.route('/lab4/users')
+def users_list():
+    if 'login' not in session:
+        return redirect('/lab4/login')
+    
+    return render_template('lab4/users.html', users=users, current_user=session['login'])
+
+
+@lab4.route('/lab4/edit', methods = ['GET', 'POST'])
+def edit():
+    if 'login' not in session:
+        return redirect('/lab4/login')
+    
+    current_login = session['login']
+    current_user = None
+
+    for user in users:
+        if user['login'] == current_login:
+            current_user = user
+            break
+
+    if request.method == 'GET':
+        return render_template('lab4/edit.html', user=current_user)
+    
+    new_login = request.form.get('login')
+    new_name = request.form.get('name')
+    new_password = request.form.get('password')
+    confirm_password = request.form.get('confirm_password')
+
+    if not new_login or not new_name:
+        return render_template('lab4/edit.html', user=current_user, error='Логин и имя обязательны для заполнения')
+
+    if new_password or confirm_password:
+        if new_password != confirm_password:
+            return render_template('lab4/edit.html', user=current_user, error='Пароли не совпадают')
+
+    current_user['password'] = new_password
+
+    current_user['login'] = new_login
+    current_user['name'] = new_name
+    
+    session['login'] = new_login
+    session['name'] = new_name
+    
+    return redirect('/lab4/users')
+
+
+@lab4.route('/lab4/delete', methods=['POST'])
+def delete():
+    if 'login' not in session:
+        return redirect('/lab4/login')
+    
+    current_login = session['login']
+    
+    global users
+    users = [user for user in users if user['login'] != current_login]
+    
+    session.pop('login', None)
+    session.pop('name', None)
+    
+    return redirect('/lab4/login')
+
+
 @lab4.route('/lab4/xolodilnik', methods=['GET', 'POST'])
 def xolodilnik():
     temp1 = request.form.get('temp')
@@ -192,7 +276,6 @@ def zerno():
         zerno = request.form.get('zerno')
         ves1 = request.form.get('ves')
 
-        # Проверка на выбор зерна
         if not zerno:
             error = 'Ошибка: выберите зерно!'
             return render_template('lab4/zerno.html', error=error)

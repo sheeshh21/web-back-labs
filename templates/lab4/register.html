@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block number_lab %}Лабораторная работа 4{% endblock %}
+
+{% block main %}
+    <h2 class="block2">Регистрация</h2>
+    <div class="register-container">
+        <form method="post" class="register-form">
+            <div class="form-group">
+                <label for="login" class="form-label">Введите логин:</label>
+                <input type="text" id="login" name="login" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="name" class="form-label">Введите имя:</label>
+                <input type="text" id="name" name="name" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Введите пароль:</label>
+                <input type="password" id="password" name="password" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="confirm_password" class="form-label">Подтверждение пароля:</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-input">
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                <button type="reset" class="btn btn-secondary">Очистить</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

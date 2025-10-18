@@ -7,14 +7,19 @@
     {% if error %}
         {{ error }}
     {% else %}
-    
-    <div>
-        Посажено деревьев: {{ tree_count }}
+    <h2 class="block2">Деревья</h2>
+    <div class="register-container">
+        <form method="post" class="register-form">
+            <div>
+                Посажено деревьев: {{ tree_count }}
+            </div>
+            <hr>
+            <div class="form-buttons">
+                <button class="btn btn-primary" name="operation" value="plant" {% if tree_count >= 10 %}disabled{% endif %}>Посадить дерево</button>
+                <button class="btn btn-secondary" name="operation" value="cut" {% if tree_count <= 0 %}disabled{% endif %}>Срубить дерево</button>
+            </div>
+        </form>
     </div>
-    <form method="post">
-        <button name="operation" value="plant" {% if tree_count >= 10 %}disabled{% endif %}>Посадить дерево</button>
-        <button name="operation" value="cut" {% if tree_count <= 0 %}disabled{% endif %}>Срубить дерево</button>
-    </form>
     {% endif %}
 
 {% endblock %}

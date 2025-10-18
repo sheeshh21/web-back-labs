@@ -4,30 +4,36 @@
 
 {% block main %}
     {% if authorized %}
-        <h1>Добро пожаловать {{ name }}</h1>
-        <div>
-            <form action="/lab4/logout" method="post">
-                <button>Выход</button>
-            </form>
+        <div class="login-container">
+            <div class="login-form">
+                <h2 class="welcome-title">Добро пожаловать, <span class="user-name">{{ name }}</span></h2>
+                <div class="action-buttons">
+                    <form action="/lab4/logout" method="post">
+                        <button class="btn btn-logout">Выход</button>
+                    </form>
+                    <a href="/lab4/users" class="btn btn-users">К списку пользователей</a>
+                </div>
+            </div>
         </div>
     {% else %}
-        <h1>Вход</h1>
-        <h2>Пожалуйста, авторизуйтесь</h2>
-        <form method="post">
-            <div>
-                <label for="login">Пользователь:</label>
-                <input type="text" id="login" name="login" value="{{ login or '' }}">
-            </div>
-            <div>
-                <label for="password">Пароль:</label>
-                <input type="password" id="password" name="password">
-            </div>
-            <div class="errorlog">{{ error }} {{ errorpass }} {{ errorlog }}</div>
-            <div></div>
-            <div>
-                <button type="submit">Войти</button>
-                <button type="reset">Отмена</button>
-            </div>
-        </form>
+        <h2 class="block2">Вход</h2>
+        <div class="login-container">
+            <form method="post" class="login-form">
+                <div class="form-group">
+                    <label for="login" class="form-label">Пользователь:</label>
+                    <input type="text" id="login" name="login" value="{{ login or '' }}" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Пароль:</label>
+                    <input type="password" id="password" name="password" class="form-input">
+                </div>
+                <div class="errorlog">{{ error }} {{ errorpass }} {{ errorlog }}</div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <button type="reset" class="btn btn-secondary">Отмена</button>
+                </div>
+            </form>
+            <h2 class="login-subtitle">Пожалуйста, авторизуйтесь</h2>
+        </div>
     {% endif %}
 {% endblock %}

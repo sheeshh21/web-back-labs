@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block number_lab %}Лабораторная работа 4{% endblock %}
+
+{% block main %}
+    <h2 class="block2">Список пользователей</h2>
+    <div class="users-container">
+        <p class="welcome-text">Добро пожаловать, <span class="user-name">{{ session.name }}!</span></p>
+        
+        <div class="action-buttons">
+            <form action="/lab4/edit" method="get">
+                <button type="submit" class="btn btn-edit">Редактировать мои данные</button>
+            </form>
+            <form action="/lab4/delete" method="post">
+                <button type="submit" class="btn btn-delete">Удалить мой профиль</button>
+            </form>
+            <form action="/lab4/logout" method="post">
+                <button type="submit" class="btn btn-logout">Выйти</button>
+            </form>
+        </div>
+        
+        <div class="table-container">
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Логин</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.login }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="back-link">
+            <a href="/lab4/login" class="btn btn-back">Назад к входу</a>
+        </div>
+    </div>
+{% endblock %}
