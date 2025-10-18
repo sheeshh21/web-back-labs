@@ -155,3 +155,32 @@ def login():
 def logout():
     session.pop('login', None)
     return redirect('/lab4/login')
+
+
+@lab4.route('/lab4/xolodilnik', methods=['GET', 'POST'])
+def xolodilnik():
+    temp1 = request.form.get('temp')
+    
+    if temp1 is None or temp1 == '':
+        error = 'Ошибка: не задана температура'
+        return render_template('lab4/xolodilnik.html', error=error)
+    
+    temp = float(temp1)
+    
+    if temp < -12:
+        error = 'Не удалось установить температуру — слишком низкое значение'
+        return render_template('lab4/xolodilnik.html', error=error)
+    elif temp > -1:
+        error = 'Не удалось установить температуру — слишком высокое значение'
+        return render_template('lab4/xolodilnik.html', error=error)
+    elif -12 <= temp <= -9:
+        snowflakes = 3
+        return render_template('lab4/xolodilnik.html', temp=temp, snowflakes=snowflakes)
+    elif -8 <= temp <= -5:
+        snowflakes = 2
+        return render_template('lab4/xolodilnik.html', temp=temp, snowflakes=snowflakes)
+    elif -4 <= temp <= -1:
+        snowflakes = 1
+        return render_template('lab4/xolodilnik.html', temp=temp, snowflakes=snowflakes)
+    else:
+        return render_template('lab4/xolodilnik.html', temp=temp)
