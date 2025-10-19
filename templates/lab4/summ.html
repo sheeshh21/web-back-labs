@@ -4,11 +4,14 @@
 
 {% block main %}
 
-    
-    <h1 class="block2">Суммирование чисел</h1>
-    {{ x1 }} + {{ x2 }} = {{ result }}
-    
-
-    <br>
-    <a href="/lab4/div-form">Вернуться назад</a>
+    <h2 class="block2">Сложение чисел</h2>
+    <div class="register-container">
+        <div class="register-form">
+        {{ x1 }} + {{ x2 }} = {{ result }}
+        </div>
+    </div>
+    <hr>
+    <form action='/lab4/div-form'>
+        <button type="submit" class="btn btn-primary">Назад</button>
+    </form>
 {% endblock %}

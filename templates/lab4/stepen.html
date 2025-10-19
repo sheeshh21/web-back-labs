@@ -10,10 +10,16 @@
         {{ error2 }}
     {% else %}
 
-    <h1 class="block2">Возведение в степень</h1>
-    {{ x1 }} ** {{ x2 }} = {{ result }}
-    {% endif %}
+    <h2 class="block2">Возведение в степень</h2>
+    <div class="register-container">
+        <div class="register-form">
+        {{ x1 }} ** {{ x2 }} = {{ result }}
+        {% endif %}
+        </div>
+    </div>
+    <hr>
+    <form action='/lab4/div-form'>
+        <button type="submit" class="btn btn-primary">Назад</button>
+    </form>
 
-    <br>
-    <a href="/lab4/div-form">Вернуться назад</a>
 {% endblock %}
