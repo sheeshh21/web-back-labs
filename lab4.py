@@ -231,9 +231,14 @@ def delete():
         return redirect('/lab4/login')
     
     current_login = session['login']
+    current_user = None
     
-    global users
-    users = [user for user in users if user['login'] != current_login]
+    for user in users:
+        if user['login'] == current_login:
+            current_user = user
+    
+    if current_user:
+        users.remove(current_user)
     
     session.pop('login', None)
     session.pop('name', None)
