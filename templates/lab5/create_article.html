@@ -3,19 +3,19 @@
 {% block number_lab %}Лабораторная работа 5{% endblock %}
 
 {% block main %}
-    
     <h2>Создание статьи</h2>
 
     <form method="post">
         <div>
-            <label type="text" name="title" maxlenght="50">
+            <label for="title">
                 Название статьи:
-                <input type="text" maxlenght="50">
             </label>
+            <input type="text" id="title" name="title" maxlength="50" required>
         </div>
 
         <div>
-            <textarea name="article_text"></textarea>
+            <label for="article_text">Текст статьи:</label>
+            <textarea id="article_text" name="article_text" required></textarea>
         </div>
 
         <div>
