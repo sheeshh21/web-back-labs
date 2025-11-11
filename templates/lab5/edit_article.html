@@ -3,30 +3,24 @@
 {% block number_lab %}Лабораторная работа 5{% endblock %}
 
 {% block main %}
-    <h2>Редактирование статьи</h2>
+    <h2 class="block2">Редактирование статьи</h2>
 
-    {% if error %}
-        <div style="color: red;">{{ error }}</div>
-    {% endif %}
-
-    <form method="post">
+    <form class="login-form login-container" method="post">
         <div>
             <label for="title">
                 Название статьи:
             </label>
-            <input type="text" id="title" name="title" maxlength="50" 
-                   value="{{ article['title'] }}" required>
+            <input class="form-input" type="text" id="title" name="title" maxlength="50" value="{{ article['title'] }}" required>
         </div>
 
         <div>
             <label for="article_text">Текст статьи:</label>
-            <textarea id="article_text" name="article_text" required>{{ article['article_text'] }}</textarea>
+            <textarea class="form-input" id="article_text" name="article_text" required>{{ article['article_text'] }}</textarea>
         </div>
 
         <div>
-            <button type="submit">Сохранить изменения</button>
+            <button class="btn statnew" type="submit">Сохранить изменения</button>
         </div>
     </form>
 
-    <a href="{{ url_for('lab5.list') }}">Вернуться к списку статей</a>
 {% endblock %}

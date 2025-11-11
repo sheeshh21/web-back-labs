@@ -10,18 +10,33 @@
             <label for="title">
                 Название статьи:
             </label>
-            <input class="form-input" type="text" id="title" name="title" maxlength="50">
+            <input class="form-input" type="text" id="title" name="title" maxlength="50" required>
         </div>
 
         <div>
             <label for="article_text">Текст статьи:</label>
-            <textarea class="form-input" id="article_text" name="article_text"></textarea>
+            <textarea class="form-input" id="article_text" name="article_text" required></textarea>
         </div>
 
-        <div>{{ error }}</div>
+        <div class="checkbox-group">
+            <label class="checkbox-label">
+                <input type="checkbox" name="is_favorite" value="1">
+                Избранная статья
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" name="is_public" value="1">
+                Публичная статья
+            </label>
+        </div>
+
+        {% if error %}
+            <div style="color: red; margin: 10px 0;">{{ error }}</div>
+        {% endif %}
 
         <div>
-            <button class="btn btn-primary" type="submit">Готово</button>
+            <button class="btn btn-primary" type="submit">Создать статью</button>
         </div>
     </form>
+
+    <a class="stat" href="{{ url_for('lab5.list_articles') }}">Вернуться к списку статей</a>
 {% endblock %}

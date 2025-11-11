@@ -3,15 +3,39 @@
 {% block number_lab %}Лабораторная работа 5{% endblock %}
 
 {% block main %}
-    <h2 class="block2">Формы (POST)</h2>
-    <div><b>Тема лабораторной Flask и БД. Список сделанных страниц:</b></div>
-    <div><b>База знаний</b></div>
-    <div class="spisoklab">
-        <ol class="text">
-            <li><a href="/lab5/login">Вход</a><br>
-            <li><a href="/lab5/register">Регистрация</a><br>   
-            <li><a href="/lab5/list">Список статей</a><br>   
-            <li><a href="/lab5/create">Создать статью</a><br>   
-        </ol>
+    <h2 class="block2">База знаний</h2>
+
+    <div class="nazvstat login-container">
+        {% if login %}
+            <p>Добро пожаловать, {{ login }}!</p><hr>
+            <a class="btn nazad" href="/lab5/list">Мои статьи</a>
+            <a class="btn nazad" href="/lab5/create">Создать статью</a>
+            <a class="btn nazad" href="/lab5/change_profile">Редактировать профиль</a><br>
+            <a class="btn nazad" href="/lab5/users">Список пользователей</a><br><hr>
+            <a class="btn statdel" href="/lab5/logout">Выйти</a>
+        {% else %}
+            <p>Вы не авторизованы</p>
+            <a class="stat" href="/lab5/login">Войти</a>
+            <a class="stat" href="/lab5/register">Зарегистрироваться</a>
+        {% endif %}
     </div>
+
+    <h2 class="block2">Публичные статьи</h2>
+
+    {% if public_articles %}
+        {% for article in public_articles %}
+            <div class="nazvstat login-container" 
+                 {% if article['is_favorite'] %}{% endif %}>
+                <div>
+                    {{ article['title'] }}
+                    {% if article['is_favorite'] %}{% endif %}
+                </div>
+                <hr>
+                <div>{{ article['article_text'] }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="nazvstat login-container">Пока нет публичных статей.</p>
+    {% endif %}
+
 {% endblock %}

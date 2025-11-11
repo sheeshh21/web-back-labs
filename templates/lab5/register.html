@@ -16,8 +16,15 @@
                 Пароль: <input class="form-input" type="password" name="password">
             </label>
             <br>
-            {{ error }}
-        </div><br>
+        
+        </div>
+
+        <div>
+            <label>
+                Реальное имя: <input class="form-input" type="text" name="real_name">
+            </label>
+        </div>
+        {{ error }}<br>
         <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
      </form>
 {% endblock %}

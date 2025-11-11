@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block number_lab %}Лабораторная работа 5{% endblock %}
+
+{% block main %}
+    <h2 class="block2">Изменение профиля</h2>
+
+    <form class="login-form login-container" method="post">
+        <div>
+            <label>
+                Логин: <br><input class="form-input" type="text" value="{{ user['login'] }}" disabled>
+            </label>
+        </div>
+
+        <div>
+            <label>
+                Реальное имя: <br><input class="form-input" type="text" name="real_name" value="{{ user['real_name'] or '' }}">
+            </label>
+        </div>
+
+        <div>
+            <label>
+                Новый пароль: <br><input class="form-input" type="password" name="new_password">
+            </label>
+        </div>
+
+        <div>
+            <label>
+                Подтверждение нового пароля: <br><input class="form-input" type="password" name="confirm_password">
+            </label>
+        </div>
+
+        <div>
+            <button class="btn statnew" type="submit">Сохранить изменения</button>
+            </a>
+        </div>
+    </form>
+{% endblock %}
