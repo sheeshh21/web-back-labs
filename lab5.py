@@ -9,29 +9,7 @@ lab5 = Blueprint('lab5', __name__)
 
 @lab5.route("/lab5/")
 def lab():
-    conn, cur = db_connect()
-    
-    if current_app.config['DB_TYPE'] == 'postgres':
-        cur.execute("""
-            SELECT articles.*, users.login as author 
-            FROM articles 
-            JOIN users ON articles.user_id = users.id 
-            WHERE is_public = TRUE 
-            ORDER BY is_favotire DESC, id DESC
-        """)
-    else:
-        cur.execute("""
-            SELECT articles.*, users.login as author 
-            FROM articles 
-            JOIN users ON articles.user_id = users.id 
-            WHERE is_public = 1 
-            ORDER BY is_favotire DESC, id DESC
-        """)
-    
-    public_articles = cur.fetchall()
-    db_close(conn, cur)
-    
-    return render_template('lab5/lab5.html', login=session.get('login'), public_articles=public_articles)
+    return render_template('lab5/lab5.html', login=session.get('login'), public_articles=[])
 
 def db_connect():
     if current_app.config['DB_TYPE'] == 'postgres':
