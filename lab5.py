@@ -7,9 +7,9 @@ import sqlite3
 from os import path
 lab5 = Blueprint('lab5', __name__)
 
-@lab5.route("/lab5/")
+@lab5.route('/lab5/')
 def lab():
-    return render_template('lab5/lab5.html', login=session.get('login'), public_articles=[])
+    return render_template('lab5/lab5.html', login=session.get('login'))
 
 def db_connect():
     if current_app.config['DB_TYPE'] == 'postgres':
@@ -335,3 +335,18 @@ def change_profile():
     
     db_close(conn, cur)
     return redirect('/lab5')
+
+
+@lab5.route('/lab5/public')
+def public_articles():
+    conn, cur = db_connect()
+    
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT * FROM articles WHERE is_public = true;")
+    else:
+        cur.execute("SELECT * FROM articles WHERE is_public = 1;")
+        
+    articles = cur.fetchall()
+    
+    db_close(conn, cur)
+    return render_template('lab5/public_articles.html', articles=articles)
