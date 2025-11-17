@@ -39,7 +39,7 @@ def api():
             'id': id
         }
     
-    elif data['method'] == 'booking':
+    if data['method'] == 'booking':
         office_number = data['params']
         for office in offices:
             if office['number'] == office_number:
@@ -56,9 +56,58 @@ def api():
                 office['tenant'] = login
                 return {
                     'jsonrpc': '2.0',
-                    'error': {
-                        'code': -32601,
-                        'message': 'Method not found'
-                    },
+                    'result': 'success',
                     'id': id
                 }
+
+    if data['method'] == 'cancellation':
+        office_number = data['params']
+        
+        login = session.get('login')
+        if not login:
+            return {
+                'jsonrpc': '2.0',
+                'error': {
+                    'code': 1,
+                    'message': 'Unauthorized'
+                },
+                'id': id
+            }
+    
+        for office in offices:
+            if office['number'] == office_number:
+                if not office['tenant']:
+                    return {
+                        'jsonrpc': '2.0',
+                        'error': {
+                            'code': 4,
+                            'message': 'Office is not booked'
+                        },
+                        'id': id
+                    }
+                
+                if office['tenant'] != login:
+                   return {
+                        'jsonrpc': '2.0',
+                        'error': {
+                            'code': 5,
+                            'message': 'You can only cancel your own booking'
+                        },
+                        'id': id
+                    } 
+                
+                office['tenant'] = ""
+                return {
+                    'jsonrpc': '2.0',
+                    'result': 'success',
+                    'id': id
+                }
+
+    return {
+        'jsonrpc': '2.0',
+        'error': {
+            'code': -32601,
+            'message': 'Method not found'
+        },
+        'id': id
+    }
