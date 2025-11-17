@@ -913,3 +913,25 @@ h1 {
 .table tbody tr:hover {
     background-color: #f8f9fa;
 }
+
+.spis {
+   font-family: 'Segoe UI', system-ui, sans-serif; 
+}
+
+.btn2 {
+    background-color: rgba(147, 255, 165, 0.578);
+    margin: 5px;
+}
+
+.btn3 {
+    background-color: rgba(255, 118, 118, 0.622);
+    margin: 10px;
+}
+
+.li {
+    margin: 20px;
+    border: 2px solid black;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: rgba(210, 210, 210, 0.664);
+}
