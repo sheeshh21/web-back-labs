@@ -51,14 +51,9 @@ def api():
         offices = cur.fetchall()
         db_close(conn, cur)
         
-
-        offices_list = []
-        for office in offices:
-            offices_list.append(dict(office))
-        
         return {
             'jsonrpc': '2.0',
-            'result': offices_list,
+            'result': offices,
             'id': id
         }
     
@@ -78,7 +73,6 @@ def api():
         
         conn, cur = db_connect()
         
-
         if current_app.config['DB_TYPE'] == 'postgres':
             cur.execute('SELECT tenant FROM offices WHERE number = %s', (office_number,))
         else:
@@ -86,10 +80,7 @@ def api():
             
         office = cur.fetchone()
         
-
-        office_dict = dict(office) if office else {}
-        
-        if office_dict.get('tenant'):
+        if office['tenant']:
             db_close(conn, cur)
             return {
                 'jsonrpc': '2.0',
@@ -100,7 +91,6 @@ def api():
                 'id': id 
             }
         
-
         if current_app.config['DB_TYPE'] == 'postgres':
             cur.execute('UPDATE offices SET tenant = %s WHERE number = %s', (login, office_number))
         else:
@@ -119,7 +109,6 @@ def api():
         
         conn, cur = db_connect()
         
-
         if current_app.config['DB_TYPE'] == 'postgres':
             cur.execute('SELECT tenant FROM offices WHERE number = %s', (office_number,))
         else:
@@ -138,10 +127,7 @@ def api():
                 'id': id
             }
         
-
-        office_dict = dict(office)
-        
-        if not office_dict.get('tenant'):
+        if not office['tenant']:
             db_close(conn, cur)
             return {
                 'jsonrpc': '2.0',
@@ -152,7 +138,7 @@ def api():
                 'id': id
             }
         
-        if office_dict.get('tenant') != login:
+        if office['tenant'] != login:
             db_close(conn, cur)
             return {
                 'jsonrpc': '2.0',
@@ -163,7 +149,6 @@ def api():
                 'id': id
             }
         
-
         if current_app.config['DB_TYPE'] == 'postgres':
             cur.execute('UPDATE offices SET tenant = %s WHERE number = %s', ('', office_number))
         else:

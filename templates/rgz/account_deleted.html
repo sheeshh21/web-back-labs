@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block number_lab %}Расчётно-графическое задание{% endblock %}
+
+{% block main %}
+    <h2 class="block2">Аккаунт удален</h2>
+    <p>Ваш аккаунт был успешно удален.</p>
+    <a href="{{ url_for('rgz.rgzz') }}" class="btn nazad">На главную</a>
+{% endblock %}

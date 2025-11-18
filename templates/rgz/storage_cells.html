@@ -1,0 +1,324 @@
+{% extends "base.html" %}
+
+{% block number_lab %}Расчётно-графическое задание{% endblock %}
+
+{% block script %}
+<script>
+function getStorageInfo() {
+    const url = '/rgz/json-rpc-api/'
+    const json = {
+        'jsonrpc': '2.0',
+        'method': 'info',
+        'id': Math.round(Math.random()*1000)
+    };
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json)
+    })
+    .then(function(response) {
+        return response.json()
+    })
+    .then (function(data) {
+        if(data.error) {
+            console.error('Error:', data.error);
+            return;
+        }
+        
+        const result = data.result;
+        const cells = result.cells;
+        const stats = result.stats;
+        
+        document.getElementById('stats').innerHTML = `
+            <h3>Статистика:</h3>
+            <p>Всего ячеек: ${stats.total}</p>
+            <p>Занято: ${stats.occupied}</p>
+            <p>Свободно: ${stats.free}</p>
+        `;
+        
+        const grid = document.getElementById('storage-grid');
+        grid.innerHTML = '';
+        
+        for(let i = 0; i < cells.length; i++) {
+            const cell = cells[i];
+            const cellDiv = document.createElement('div');
+            cellDiv.className = 'storage-cell';
+            cellDiv.innerHTML = `
+                <div class="cell-number">${cell.number}</div>
+            `;
+            
+            if (cell.is_occupied) {
+                cellDiv.classList.add('occupied');
+                cellDiv.title = `Занято: ${cell.tenant}`;
+            } else {
+                cellDiv.classList.add('free');
+                cellDiv.title = 'Свободно';
+                
+                {% if login %}
+                const bookBtn = document.createElement('button');
+                bookBtn.className = 'book-btn';
+                bookBtn.innerText = 'Забронировать';
+                bookBtn.onclick = function() {booking(cell.number)};
+                cellDiv.appendChild(bookBtn);
+                {% endif %}
+            }
+            
+            {% if login %}
+            if (cell.tenant === '{{ login }}') {
+                const cancelBtn = document.createElement('button');
+                cancelBtn.className = 'cancel-btn';
+                cancelBtn.innerText = 'Освободить';
+                cancelBtn.onclick = function() {cancellation(cell.number)};
+                cellDiv.appendChild(cancelBtn);
+            }
+            {% endif %}
+            
+            grid.appendChild(cellDiv);
+        }
+    });
+}
+
+function booking(cellNumber) {
+    const url = '/rgz/json-rpc-api/';
+    const json = {
+        'jsonrpc': '2.0',
+        'method': 'booking',
+        'params': cellNumber,
+        'id': Math.round(Math.random()*1000)
+    };
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json)
+    })
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(data) {
+        if(data.error) {
+            switch(data.error.code) {
+                case 1:
+                    alert('Вы не авторизованы, пожалуйста, авторизуйтесь');
+                    break;
+                case 2:
+                    alert('Ячейка уже занята');
+                    break;
+                case 6:
+                    alert('Нельзя бронировать больше 5 ячеек');
+                    break;
+                default:
+                    alert('Ошибка: ' + data.error.message);
+            }
+        } else {
+            getStorageInfo();
+        }
+    });
+}
+
+function cancellation(cellNumber) {
+    const url = '/rgz/json-rpc-api/';
+    const json = {
+        'jsonrpc': '2.0',
+        'method': 'cancellation',
+        'params': cellNumber,
+        'id': Math.round(Math.random()*1000)
+    };
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json)
+    })
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(data) {
+        if(data.error) {
+            switch(data.error.code) {
+                case 1:
+                    alert('Вы не авторизованы');
+                    break;
+                case 4:
+                    alert('Ячейка не занята');
+                    break;
+                case 5:
+                    alert('Вы можете освобождать только свои ячейки');
+                    break;
+                default:
+                    alert('Ошибка: ' + data.error.message);
+            }
+        } else {
+            getStorageInfo();
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    getStorageInfo();
+    setInterval(getStorageInfo, 10000);
+});
+</script>
+
+<style>
+.storage-cell {
+    border: 3px solid #333;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.storage-cell.free {
+    background-color: white;
+    border-color: rgb(175, 255, 175);
+}
+
+.storage-cell.occupied {
+    background-color: black;
+    color: white;
+    border-color: rgb(255, 117, 117);
+}
+
+.cell-number {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.book-btn, .cancel-btn {
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.book-btn {
+    background-color: rgb(175, 255, 175);
+    color: rgb(0, 0, 0);
+    border: 1px solid black;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.cancel-btn {
+    background-color: rgb(255, 117, 117);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(255, 255, 255);
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.stats-container {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+.warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.user-info {
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.legend {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.storage-form {
+    background: #f8f9fa;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+
+.storage-form1 {
+    background: #d5d5d5;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+
+.storage-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: rgba(194, 220, 255, 0.426);
+    padding: 4px;
+}
+
+.storage-container1 {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: rgba(194, 220, 255, 0.426);
+    padding: 4px;
+}
+
+.storage-container2 {
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: rgba(224, 224, 224, 0.559);
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.storage-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="stats-container">
+    <div class="storage-form storage-container" id="stats"></div>
+</div>
+
+{% if not login %}
+<div class="warning">
+    <p>Для бронирования ячеек необходимо <a href="/rgz/login">войти в систему</a></p>
+</div>
+{% else %}
+<div class="stats-container">
+    <div class="storage-form storage-container1">
+        <p>Вы вошли как: <b>{{ login }}</b></p>
+        <p>Максимум можно забронировать: <b>5 ячеек</b></p>
+    </div>
+</div>
+{% endif %}
+
+<h2 class="block2">Камера хранения</h2>
+<div class="storage-form1">
+    <div class="storage-grid" id="storage-grid"></div>
+</div>
+
+<div class="stats-container">
+    <div class="storage-form storage-container2">
+        <h4>Обозначения:</h4>
+        <p>⚪ - свободно</p>
+        <p>⚫ - занято</p>
+        <p>🟢 - для свободных ячеек</p>
+        <p>🔴 - для занятых ячеек</p>
+    </div>
+</div>
+{% endblock %}

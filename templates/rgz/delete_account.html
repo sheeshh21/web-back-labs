@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block number_lab %}Расчётно-графическое задание{% endblock %}
+
+{% block main %}
+    <h2 class="block2">Удаление аккаунта</h2>
+    <p class="warning">Внимание! Это действие невозможно отменить. Все ваши данные будут безвозвратно удалены.</p>
+    
+    <form class="login-form login-container" action="/rgz/delete_account" method="post">
+        <div>
+            <label>
+                Введите пароль для подтверждения: <br>
+                <input class="form-input" type="password" name="password" required>
+            </label>
+        </div>
+        {{ error }}<br>
+        <button class="btn btn-danger" type="submit" onclick="return confirm('Вы уверены, что хотите удалить аккаунт?')">Удалить аккаунт</button>
+        <a href="{{ url_for('rgz.rgzz') }}" class="btn nazad">Отмена</a>
+    </form>
+{% endblock %}
