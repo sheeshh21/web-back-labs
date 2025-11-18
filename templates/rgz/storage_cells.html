@@ -44,16 +44,33 @@ function getStorageInfo() {
             const cell = cells[i];
             const cellDiv = document.createElement('div');
             cellDiv.className = 'storage-cell';
+            
             cellDiv.innerHTML = `
                 <div class="cell-number">${cell.number}</div>
             `;
             
             if (cell.is_occupied) {
                 cellDiv.classList.add('occupied');
-                cellDiv.title = `Занято: ${cell.tenant}`;
+                
+                const tenantInfo = document.createElement('div');
+                tenantInfo.className = 'tenant-info';
+                tenantInfo.innerHTML = `
+                    <small>Занято:<br>${cell.tenant}</small>
+                `;
+                cellDiv.appendChild(tenantInfo);
+                
+                {% if login %}
+                if (cell.tenant === '{{ login }}') {
+                    const cancelBtn = document.createElement('button');
+                    cancelBtn.className = 'cancel-btn';
+                    cancelBtn.innerText = 'Освободить';
+                    cancelBtn.onclick = function() {cancellation(cell.number)};
+                    cellDiv.appendChild(cancelBtn);
+                }
+                {% endif %}
+                
             } else {
                 cellDiv.classList.add('free');
-                cellDiv.title = 'Свободно';
                 
                 {% if login %}
                 const bookBtn = document.createElement('button');
@@ -63,16 +80,6 @@ function getStorageInfo() {
                 cellDiv.appendChild(bookBtn);
                 {% endif %}
             }
-            
-            {% if login %}
-            if (cell.tenant === '{{ login }}') {
-                const cancelBtn = document.createElement('button');
-                cancelBtn.className = 'cancel-btn';
-                cancelBtn.innerText = 'Освободить';
-                cancelBtn.onclick = function() {cancellation(cell.number)};
-                cellDiv.appendChild(cancelBtn);
-            }
-            {% endif %}
             
             grid.appendChild(cellDiv);
         }

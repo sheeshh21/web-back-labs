@@ -149,49 +149,6 @@ def delete_account():
     return render_template('rgz/account_deleted.html')
 
 
-@rgz.route('/rgz/init_storage')
-def init_storage():
-    conn, cur = db_connect()
-    
-    try:
-        if current_app.config['DB_TYPE'] == 'postgres':
-            cur.execute('''
-                CREATE TABLE IF NOT EXISTS storage_cells (
-                    id SERIAL PRIMARY KEY,
-                    number INTEGER NOT NULL UNIQUE,
-                    tenant VARCHAR(100),
-                    is_occupied BOOLEAN DEFAULT FALSE
-                )
-            ''')
-            
-            for i in range(1, 101):
-                cur.execute(
-                    "INSERT INTO storage_cells (number, is_occupied) VALUES (%s, %s) ON CONFLICT (number) DO NOTHING",
-                    (i, False)
-                )
-        else:
-            cur.execute('''
-                CREATE TABLE IF NOT EXISTS storage_cells (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    number INTEGER NOT NULL UNIQUE,
-                    tenant TEXT,
-                    is_occupied BOOLEAN DEFAULT FALSE
-                )
-            ''')
-            
-            for i in range(1, 101):
-                cur.execute(
-                    "INSERT OR IGNORE INTO storage_cells (number, is_occupied) VALUES (?, ?)",
-                    (i, False)
-                )
-        
-        db_close(conn, cur)
-        return "Ячейки инициализированы успешно!"
-    
-    except Exception as e:
-        db_close(conn, cur)
-        return f"Ошибка: {e}"
-
 @rgz.route('/rgz/json-rpc-api/', methods=['POST'])
 def api():
     data = request.json
