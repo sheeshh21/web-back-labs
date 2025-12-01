@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, request, redirect, abort, render_template, make_response, session
+from flask import Blueprint, url_for, request, redirect, abort, render_template, make_response, session, jsonify
 import datetime
 lab7 = Blueprint('lab7', __name__)
 
@@ -51,7 +51,7 @@ films = [
 
 @lab7.route('/lab7/rest-api/films/', methods=['GET'])
 def get_films():
-    return films
+    return jsonify(films)
 
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['GET'])
