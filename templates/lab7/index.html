@@ -21,6 +21,8 @@
 .error-message {
     color: red;
     font-weight: bold;
+    margin-top: 5px;
+    font-size: 14px;
 }
 table {
     width: 100%;
@@ -71,6 +73,17 @@ button:hover {
 .dob {
     background-color: rgb(180, 255, 180);
 }
+.form-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+}
+label {
+    display: block;
+    margin-bottom: 15px;
+}
 </style>
 {% endblock %}
 
@@ -102,6 +115,7 @@ button:hover {
         <label>
             Название фильма на русском:
             <input class="form-input" type="text" id="title-ru">
+            <div id="title-ru-error" class="error-message"></div>
         </label><br>
 
         <label>
@@ -113,11 +127,12 @@ button:hover {
         <label>
             Год выпуска:
             <input class="form-input" type="number" id="year">
+            <div id="year-error" class="error-message"></div>
         </label><br>
 
         <label>
             Описание:
-            <textarea class="form-input" id="description"></textarea>
+            <textarea class="form-input" id="description" rows="4"></textarea>
             <div id="description-error" class="error-message"></div>
         </label>
 

@@ -48,7 +48,6 @@ films = [
     }
 ]
 
-
 @lab7.route('/lab7/rest-api/films/', methods=['GET'])
 def get_films():
     return jsonify(films)
@@ -77,25 +76,63 @@ def put_film(id):
         abort(404)
 
     film = request.get_json()
-    if film['description'] == '':
-        return {'description': 'Заполните описание'}, 400
+    errors = {}
     
     if film['title'] == '':
         film['title'] = film['title_ru']
-
+    
+    year = film.get('year')
+    if year is None or year == '':
+        errors['year'] = 'Год обязателен для заполнения'
+    else:
+        if year < 1895:
+            errors['year'] = 'Год не может быть раньше 1895'
+        elif year > 2025:
+            errors['year'] = 'Год не может быть больше 2025'
+    
+    description = film.get('description', '')
+    if description == '':
+        errors['description'] = 'Заполните описание'
+    elif len(description) > 2000:
+        errors['description'] = 'Описание не должно превышать 2000 символов'
+    
+    if errors:
+        return jsonify(errors), 400
+    
     films[id] = film
-    return films[id]
-
+    return jsonify(film)
 
 @lab7.route('/lab7/rest-api/films/', methods=['POST'])
 def add_film():
     film = request.get_json()
-    if film['description'] == '':
-        return {'description': 'Заполните описание'}, 400
+    errors = {}
     
+    if not film['title_ru']:
+        errors['title_ru'] = 'Русское название обязательно для заполнения'
+
     if film['title'] == '':
         film['title'] = film['title_ru']
     
+
+    year = film.get('year')
+    if year is None or year == '':
+        errors['year'] = 'Год обязателен для заполнения'
+    else:
+        year_int = int(year)
+        if year_int < 1895:
+            errors['year'] = 'Год не может быть раньше 1895'
+        elif year_int > 2025:
+            errors['year'] = 'Год не может быть больше 2025'
+    
+    description = film.get('description', '')
+    if description == '':
+        errors['description'] = 'Заполните описание'
+    elif len(description) > 2000:
+        errors['description'] = 'Описание не должно превышать 2000 символов'
+    
+    if errors:
+        return jsonify(errors), 400
+    
     films.append(film)
-    new_id = len(films) -1
+    new_id = len(films) - 1
     return str(new_id), 201
