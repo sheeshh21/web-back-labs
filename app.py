@@ -14,6 +14,7 @@ from lab5 import lab5
 from lab6 import lab6
 from lab7 import lab7
 from lab8 import lab8
+from lab9 import lab9
 from rgz import rgz
 
 app = Flask(__name__)
@@ -53,6 +54,7 @@ app.register_blueprint(lab5)
 app.register_blueprint(lab6)
 app.register_blueprint(lab7)
 app.register_blueprint(lab8)
+app.register_blueprint(lab9)
 app.register_blueprint(rgz)
 
 @app.route("/index")
@@ -90,6 +92,7 @@ def a():
                     <div class='spisoklab'><a href="/lab6">Лабораторная работа №6</a></div>
                     <div class='spisoklab'><a href="/lab7">Лабораторная работа №7</a></div>
                     <div class='spisoklab'><a href="/lab8">Лабораторная работа №8</a></div>
+                    <div class='spisoklab'><a href="/lab9">Лабораторная работа №9</a></div>
                     <div class='spisoklab'><a href="/rgz">Расчётно-графическое задание</a></div>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>
