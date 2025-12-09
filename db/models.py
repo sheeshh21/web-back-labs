@@ -14,3 +14,4 @@ class articles(db.Model, UserMixin):
     is_favorite = db.Column(db.Boolean)
     is_public = db.Column(db.Boolean)
     likes = db.Column(db.Integer)
+    
