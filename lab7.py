@@ -1,94 +1,122 @@
-from flask import Blueprint, url_for, request, redirect, abort, render_template, make_response, session, jsonify
-import datetime
+from flask import Blueprint, url_for, request, redirect, abort, render_template, make_response, session, current_app, jsonify
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import sqlite3
+from os import path
+
 lab7 = Blueprint('lab7', __name__)
+
+def db_connect():
+    """Подключение к базе данных (PostgreSQL или SQLite)"""
+    if current_app.config['DB_TYPE'] == 'postgres':
+        conn = psycopg2.connect(
+            host='127.0.0.1',
+            database='alex_ryazantsev_knowledge_base',
+            user='alex_ryazantsev_knowledge_base',
+            password='123'
+        )
+        cur = conn.cursor(cursor_factory=RealDictCursor)
+    else:
+        dir_path = path.dirname(path.realpath(__file__))
+        db_path = path.join(dir_path, "database.db")
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+
+    return conn, cur
+
+def db_close(conn, cur):
+    """Закрытие соединения с базой данных"""
+    conn.commit()
+    cur.close()
+    conn.close()
 
 @lab7.route("/lab7/")
 def main():
     return render_template('lab7/index.html')
 
-
-films = [
-    {
-        "title": "comeback",
-        "title_ru": "Камбек",
-        "year": 2025,
-        "description": "Нижний Новгород, начало 2000-х. В телефонах — только звонки и \
-            «змейка», во дворах качают под Дельфина и Hi-Fi, а богатые чаще всего связаны \
-            с криминалом. Трое школьных друзей — Юра, Птаха и Олег — решают выручить\
-            одноклассницу Дашу, но вместо этого вляпываются в серьёзные неприятности.\
-            И неожиданно их спасает бездомный по прозвищу Компот. Он скитается в\
-            поисках заработка, его подкармливают в школьной столовой, а сам он ничего\
-            не помнит о своём прошлом — однажды он просто очнулся после тяжелых травм.\
-            Ребята понимают: этот человек спас им жизнь, и теперь они хотят раскопать\
-            тайну Компота и помочь ему вернуть себя настоящего."
-    },
-    {
-        "title": "Brotherly",
-        "title_ru": "По-братски",
-        "year": 2025,
-        "description": "Антон и Света Лебедевы приняли ответственное решение:\
-            они хотят развестись. Из-за бюрократических проблем им необходимо\
-            отправиться в путешествие в далекий северный городок Нежногорье,\
-            где их когда-то поженили. К ним на выручку приходит безумная\
-            соседская семейка — Валентин и Варвара Бублики, а также\
-            их озорной сын Платон Валентинович, которые случайно отправляются\
-            по тому же маршруту. Антон и Света вынуждены согласиться поехать \
-            с ними, не предполагая, какие безумные приключения ждут их на этом пути."
-    },
-    {
-        "title": "The Shawshank Redemption",
-        "title_ru": "Побег из Шоушенка",
-        "year": 1994,
-        "description": "Бухгалтер Энди Дюфрейн обвинён в убийстве собственной\
-            жены и её любовника. Оказавшись в тюрьме под названием Шоушенк,\
-            он сталкивается с жестокостью и беззаконием, царящими по обе\
-            стороны решётки. Каждый, кто попадает в эти стены, становится\
-            их рабом до конца жизни. Но Энди, обладающий живым умом и доброй душой,\
-            находит подход как к заключённым, так и к охранникам, добиваясь их особого к себе расположения."
-    }
-]
-
 @lab7.route('/lab7/rest-api/films/', methods=['GET'])
 def get_films():
-    return jsonify(films)
-
+    conn, cur = db_connect()
+    
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT * FROM films ORDER BY id;")
+    else:
+        cur.execute("SELECT * FROM films ORDER BY id;")
+    
+    films = cur.fetchall()
+    db_close(conn, cur)
+    
+    films_list = []
+    for film in films:
+        films_list.append(dict(film))
+    
+    return jsonify(films_list)
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['GET'])
 def get_film(id):
-    if id < 0 or id >= len(films):
+    conn, cur = db_connect()
+    
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT * FROM films WHERE id = %s;", (id,))
+    else:
+        cur.execute("SELECT * FROM films WHERE id = ?;", (id,))
+    
+    film = cur.fetchone()
+    db_close(conn, cur)
+    
+    if not film:
         abort(404)
-
-    return films[id]
-
+    
+    return dict(film)
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['DELETE'])
 def del_film(id):
-    if id < 0 or id >= len(films):
+    conn, cur = db_connect()
+    
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT title_ru FROM films WHERE id = %s;", (id,))
+    else:
+        cur.execute("SELECT title_ru FROM films WHERE id = ?;", (id,))
+    
+    film = cur.fetchone()
+    
+    if not film:
+        db_close(conn, cur)
         abort(404)
-
-    del films[id]
+    
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("DELETE FROM films WHERE id = %s;", (id,))
+    else:
+        cur.execute("DELETE FROM films WHERE id = ?;", (id,))
+    
+    db_close(conn, cur)
+    
     return '', 204
-
 
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['PUT'])
 def put_film(id):
-    if id < 0 or id >= len(films):
-        abort(404)
-
     film = request.get_json()
     errors = {}
     
-    if film['title'] == '':
+    if film['title_ru'] == '':
+        errors['title_ru'] = 'Русское название обязательно для заполнения'
+    
+    if film.get('title') == '':
         film['title'] = film['title_ru']
     
     year = film.get('year')
     if year is None or year == '':
         errors['year'] = 'Год обязателен для заполнения'
     else:
-        if year < 1895:
-            errors['year'] = 'Год не может быть раньше 1895'
-        elif year > 2025:
-            errors['year'] = 'Год не может быть больше 2025'
+        try:
+            year_int = int(year)
+            if year_int < 1895:
+                errors['year'] = 'Год не может быть раньше 1895'
+            elif year_int > 2025:
+                errors['year'] = 'Год не может быть больше 2025'
+        except:
+            errors['year'] = 'Год должен быть числом'
     
     description = film.get('description', '')
     if description == '':
@@ -99,21 +127,52 @@ def put_film(id):
     if errors:
         return jsonify(errors), 400
     
-    films[id] = film
-    return jsonify(film)
+    conn, cur = db_connect()
+
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT id FROM films WHERE id = %s;", (id,))
+    else:
+        cur.execute("SELECT id FROM films WHERE id = ?;", (id,))
+    
+    if not cur.fetchone():
+        db_close(conn, cur)
+        abort(404)
+    
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("""
+            UPDATE films 
+            SET title = %s, title_ru = %s, year = %s, description = %s 
+            WHERE id = %s;
+        """, (film['title'], film['title_ru'], year_int, description, id))
+    else:
+        cur.execute("""
+            UPDATE films 
+            SET title = ?, title_ru = ?, year = ?, description = ? 
+            WHERE id = ?;
+        """, (film['title'], film['title_ru'], year_int, description, id))
+    
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("SELECT * FROM films WHERE id = %s;", (id,))
+    else:
+        cur.execute("SELECT * FROM films WHERE id = ?;", (id,))
+    
+    updated_film = cur.fetchone()
+    
+    db_close(conn, cur)
+    
+    return dict(updated_film)
 
 @lab7.route('/lab7/rest-api/films/', methods=['POST'])
 def add_film():
     film = request.get_json()
     errors = {}
     
-    if not film['title_ru']:
+    if film['title_ru'] == '':
         errors['title_ru'] = 'Русское название обязательно для заполнения'
-
-    if film['title'] == '':
+    
+    if film.get('title') == '':
         film['title'] = film['title_ru']
     
-
     year = film.get('year')
     if year is None or year == '':
         errors['year'] = 'Год обязателен для заполнения'
@@ -133,6 +192,24 @@ def add_film():
     if errors:
         return jsonify(errors), 400
     
-    films.append(film)
-    new_id = len(films) - 1
+    conn, cur = db_connect()
+    
+    if current_app.config['DB_TYPE'] == 'postgres':
+        cur.execute("""
+            INSERT INTO films (title, title_ru, year, description) 
+            VALUES (%s, %s, %s, %s) 
+            RETURNING id;
+        """, (film['title'], film['title_ru'], year_int, description))
+        new_id = cur.fetchone()['id']
+    else:
+        cur.execute("""
+            INSERT INTO films (title, title_ru, year, description) 
+            VALUES (?, ?, ?, ?);
+        """, (film['title'], film['title_ru'], year_int, description))
+        
+        cur.execute("SELECT last_insert_rowid() as id;")
+        new_id = cur.fetchone()['id']
+    
+    db_close(conn, cur)
+    
     return str(new_id), 201
