@@ -7,7 +7,6 @@ from os import path
 lab7 = Blueprint('lab7', __name__)
 
 def db_connect():
-    """Подключение к базе данных (PostgreSQL или SQLite)"""
     if current_app.config['DB_TYPE'] == 'postgres':
         conn = psycopg2.connect(
             host='127.0.0.1',
@@ -26,7 +25,6 @@ def db_connect():
     return conn, cur
 
 def db_close(conn, cur):
-    """Закрытие соединения с базой данных"""
     conn.commit()
     cur.close()
     conn.close()
@@ -141,14 +139,12 @@ def put_film(id):
     if current_app.config['DB_TYPE'] == 'postgres':
         cur.execute("""
             UPDATE films 
-            SET title = %s, title_ru = %s, year = %s, description = %s 
-            WHERE id = %s;
+            SET title = %s, title_ru = %s, year = %s, description = %s WHERE id = %s;
         """, (film['title'], film['title_ru'], year_int, description, id))
     else:
         cur.execute("""
             UPDATE films 
-            SET title = ?, title_ru = ?, year = ?, description = ? 
-            WHERE id = ?;
+            SET title = ?, title_ru = ?, year = ?, description = ? WHERE id = ?;
         """, (film['title'], film['title_ru'], year_int, description, id))
     
     if current_app.config['DB_TYPE'] == 'postgres':
@@ -196,15 +192,12 @@ def add_film():
     
     if current_app.config['DB_TYPE'] == 'postgres':
         cur.execute("""
-            INSERT INTO films (title, title_ru, year, description) 
-            VALUES (%s, %s, %s, %s) 
-            RETURNING id;
+            INSERT INTO films (title, title_ru, year, description) VALUES (%s, %s, %s, %s) RETURNING id;
         """, (film['title'], film['title_ru'], year_int, description))
         new_id = cur.fetchone()['id']
     else:
         cur.execute("""
-            INSERT INTO films (title, title_ru, year, description) 
-            VALUES (?, ?, ?, ?);
+            INSERT INTO films (title, title_ru, year, description) VALUES (?, ?, ?, ?);
         """, (film['title'], film['title_ru'], year_int, description))
         
         cur.execute("SELECT last_insert_rowid() as id;")

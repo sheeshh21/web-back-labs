@@ -4,6 +4,7 @@ from db import db
 from db.models import users
 from flask_login import LoginManager
 import datetime
+import random
 import os
 from os import path
 from lab1 import lab1
@@ -45,6 +46,7 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
 db.init_app(app)
+
 
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
@@ -93,6 +95,7 @@ def a():
                     <div class='spisoklab'><a href="/lab7">Лабораторная работа №7</a></div>
                     <div class='spisoklab'><a href="/lab8">Лабораторная работа №8</a></div>
                     <div class='spisoklab'><a href="/lab9">Лабораторная работа №9</a></div>
+                    
                     <div class='spisoklab'><a href="/rgz">Расчётно-графическое задание</a></div>
                 <footer>Рязанцев Александр Алексеевич, ФБИ-31, 3 курс, 2025</footer>
           </body>

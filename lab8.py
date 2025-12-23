@@ -53,7 +53,7 @@ def login():
     login_form = request.form.get('login')
     password_form = request.form.get('password')
 
-    remember_me = request.form.get('remember') == 'yes'
+    remember_me = request.form.get('remember') == True
 
     if not login_form:
         return render_template('lab8/login.html', error='Имя пользователя не должно быть пустым')
@@ -119,7 +119,6 @@ def create_article():
         article_text=article_text,
         is_favorite=is_favorite,
         is_public=is_public,
-        likes=0,
         login_id=current_user.id
     )
     
